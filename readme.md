@@ -1,4 +1,4 @@
-whatthefrac
+whathefrac
 ===========
 
-Projet dataviz avec la Frac
+Projet intéractif de représentation de donnés (dataviz) avec la Frac.

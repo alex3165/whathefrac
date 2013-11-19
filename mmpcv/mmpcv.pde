@@ -19,7 +19,7 @@ void setup(){
     map = new InteractiveMap(this, new TemplatedMapProvider(mytemplate, subdomains));
     locationdepart = new Location(48.11348, -1.67571);
     map.setCenterZoom(locationdepart, 8); 
-	
+
     parseLocations("coordonnees.csv");
 
 }

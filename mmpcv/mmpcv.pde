@@ -1,122 +1,127 @@
+import processing.opengl.*;
 import com.modestmaps.*;
 import com.modestmaps.core.*;
 import com.modestmaps.geo.*;
 import com.modestmaps.providers.*;
 
-import java.util.*;
-import java.io.*;
+import java.util.Random;
 
 InteractiveMap map;
-Location locationdepart;
+ArrayList<Location> locations = new ArrayList<Location>();
 
+Random randomGenerator = new Random();
 
+void setup() {
+  size(1280, 720, OPENGL);
+  smooth();
 
-void setup(){
+  String template = "http://{S}.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.png";
+  String[] subdomains = new String[] { "otile1", "otile2", "otile3", "otile4" }; // optional
+  map = new InteractiveMap(this, new TemplatedMapProvider(template, subdomains));
 
-    size(1280, 720, OPENGL);
-	String mytemplate = "http://{S}.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.png";
-    String[] subdomains = new String[] { "otile1", "otile2", "otile3", "otile4" };
-    map = new InteractiveMap(this, new TemplatedMapProvider(mytemplate, subdomains));
-    locationdepart = new Location(48.11348, -1.67571);
-    map.setCenterZoom(locationdepart, 8); 
-	
-    parseLocations("coordonnees.csv");
+  map.setCenterZoom(new Location(48.11348, -1.67571), 8);
 
+  addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+    public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+      mouseWheel(evt.getWheelRotation());
+    }
+  });
+  
+  parseLocations("coordonnees.csv");
 }
 
-void draw(){
-	map.draw();	
+void draw() {
+  background(0);
+  map.draw();
+  handleKeys();
+  
+  Point2f p = null;
 
-	// for (int i = 0; i<meslocations.size(); i++){
-	// 	p2farr.add(map.locationPoint(meslocations.get(i)));
-	// 	fill(0);
-	// 	ellipse(p2farr.get(i).x, p2farr.get(i).y, 2, 2);
-	// }
+  for (Location loc : locations) {
+    p = map.locationPoint(loc);
+    if (p != null) {
+      //RAINBOWWW HAHAHA
+      fill(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
+      ellipse(p.x, p.y, 10, 10);
+    }
+  }
 }
 
-void parseLocations(String filename){
+void parseLocations(String filename) {
+  String[] lines = loadStrings(filename);
+  String[] coords;
+  String tmp;
+  String[] values;
 
-	String[] coordstext = loadStrings(filename);
-	int filelong = coordstext.length;
-
-	ArrayList<String> malistcorrect = new ArrayList<String>();
-	ArrayList<Float> mesnumbers = new ArrayList<Float>();
-
-	String[] temporaire;
-	float[] tempfloat;
-
-	String temp2;
-	float temp3;
-
-	float [] coords;
-
-	int a = 0;
-
-	for (int i = 0; i<filelong; i++){
-
-		temporaire = split(coordstext[i],"|");
-
-		for (int j = 0; j<temporaire.length; j++){
-			temp2 = temporaire[j];
-			if (temp2 != null){
-				malistcorrect.add(trim(temp2));
-			}
-		}
-	}
-
-	for (int i = 0; i<malistcorrect.size(); i++){
-
-		tempfloat = float(split(malistcorrect.get(i),","));
-		// if (Float.isNaN(tempfloat[1])){
-		// 		break;
-		// }
-		for (int j = 0; j<tempfloat.length; j++){
-			temp3 = tempfloat[j];
-			// mesnumbers.add(temp3);
-				mesnumbers.add(temp3);
-		}
-	}
-
-	// for (int i = 0; i<mesnumbers.size(); i++){
-	// 	if (Float.isNaN(mesnumbers.get(i))){
-	// 		mesnumbers.remove(i);
-	// 		mesnumbers.remove(i-1);
-	// 	}
-	// }
-
-	// for (int i = 0; i<malistcorrect.size(); i++){
- //    	if (malistcorrect.get(i) == null){
- //    		malistcorrect.remove(i);
- //    	}
-    	// println(malistcorrect.get(i).compareTo("null"));
-    		// println(malistcorrect.get(i));
-    //}
-
-
-    // for (int i = 0; i<mesnumbers.size(); i++){
-    // 	println(mesnumbers.get(i));
-    // }
-
-
-    // Location test = new Location (malistcorrect.get(0));
-    ArrayList<Location> meslocations = new ArrayList<Location>();
-    ArrayList<Point2f> p2farr = new ArrayList<Point2f>();
-
-	for (int i = 0; i<mesnumbers.size()-1; i++){
-		meslocations.add(new Location(mesnumbers.get(i), mesnumbers.get(i+1)));
-	}
-	// for (int i = 0; i<meslocations.size(); i++){
-	// 	p2farr.add(map.locationPoint(meslocations.get(i)));
-	// }
-	// return meslocations;
-	for (int i = 0; i<meslocations.size(); i++){
-		p2farr.add(map.locationPoint(meslocations.get(i)));
-		fill(0);
-		ellipse(p2farr.get(i).x, p2farr.get(i).y, 2, 2);
-	}
+  for (String line : lines) {
+    coords = split(line, "|");
+    for (String coord : coords) {
+      tmp = trim(coord);
+      if (!tmp.isEmpty()) {
+        values = split(tmp, ",");
+        if (values.length == 2 && !values[0].equals("null") && !values[1].equals("null")) {
+          locations.add(new Location(Float.parseFloat(values[1]), Float.parseFloat(values[0])));
+        }
+      }
+    }
+  }
 }
 
-	
-	// location = new Location(51.500, -0.126);
-    // Point2f p = map.locationPoint(location);
+void handleKeys() {
+  if (keyPressed) {
+    if (key == CODED) {
+      if (keyCode == LEFT) {
+        map.tx += 5.0/map.sc;
+      }
+      else if (keyCode == RIGHT) {
+        map.tx -= 5.0/map.sc;
+      }
+      else if (keyCode == UP) {
+        map.ty += 5.0/map.sc;
+      }
+      else if (keyCode == DOWN) {
+        map.ty -= 5.0/map.sc;
+      }
+    }
+    else if (key == '+' || key == '=') {
+      map.sc *= 1.05;
+    }
+    else if (key == '_' || key == '-' && map.sc > 2) {
+      map.sc *= 1.0/1.05;
+    }
+  }
+}
+
+void mouseDragged() {
+    map.mouseDragged();
+}
+
+void keyReleased() {
+  if (key == 's' || key == 'S') {
+    save("screenshot.png");
+  }
+  else if (key == ' ') {
+    map.sc = 2.0;
+    map.tx = -128;
+    map.ty = -128;
+  }
+}
+
+void mouseWheel(int delta) {
+  float sc = 1.0;
+  if (delta < 0) {
+    sc = 1.05;
+  }
+  else if (delta > 0) {
+    sc = 1.0/1.05;
+  }
+  float mx = mouseX - width/2;
+  float my = mouseY - height/2;
+  map.tx -= mx/map.sc;
+  map.ty -= my/map.sc;
+  map.sc *= sc;
+  map.tx += mx/map.sc;
+  map.ty += my/map.sc;
+}
+
 

@@ -18,19 +18,8 @@ void setup() {
   String template = "http://{S}.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.png";
   String[] subdomains = new String[] { "otile1", "otile2", "otile3", "otile4" }; // optional
   map = new InteractiveMap(this, new TemplatedMapProvider(template, subdomains));
-
-<<<<<<< HEAD
-    size(1280, 720, OPENGL);
-	String mytemplate = "http://{S}.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.png";
-    String[] subdomains = new String[] { "otile1", "otile2", "otile3", "otile4" };
-    map = new InteractiveMap(this, new TemplatedMapProvider(mytemplate, subdomains));
-    locationdepart = new Location(48.11348, -1.67571);
-    map.setCenterZoom(locationdepart, 8); 
-
-    parseLocations("coordonnees.csv");
-=======
+  parseLocations("coordonnees.csv");
   map.setCenterZoom(new Location(48.11348, -1.67571), 8);
->>>>>>> b014b78b6b24746bd96188cbf5498e8dfdb9623c
 
   addMouseWheelListener(new java.awt.event.MouseWheelListener() {
     public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
@@ -134,12 +123,5 @@ void mouseWheel(int delta) {
   map.tx += mx/map.sc;
   map.ty += my/map.sc;
 }
-
-<<<<<<< HEAD
-
-	// location = new Location(51.500, -0.126);
-    // Point2f p = map.locationPoint(location);
-=======
->>>>>>> b014b78b6b24746bd96188cbf5498e8dfdb9623c
 
     

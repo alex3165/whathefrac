@@ -6,6 +6,10 @@ import com.modestmaps.providers.*;
 
 import java.util.Random;
 
+/*
+
+modification de test lisa
+*/
 InteractiveMap map;
 ArrayList<Location> locations = new ArrayList<Location>();
 

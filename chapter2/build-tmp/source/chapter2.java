@@ -25,21 +25,10 @@ public void setup(){
     }
 
     for (int i = 0; i<valeur.length; i++){
-        if (valeur[i][0].equals("Oeuvre en 3 dimensions")){
-            j++;
-            println(j);
-        }
-        // switch (valeur[i][0]){
-        //     case isequals('Oeuvre en 3 dimensions'): 
-        //         println("Alpha");
-        //         break;
-        //     case 'Dessin': 
-        //         println("Bravo");
-        //         break;
-        //     default: 
-        //         println("None");   
-        //         break;
-        // }
+      //  if (valeur[i][0].equals("Oeuvre en 3 dimensions")){
+            // j++;
+            // println(j);
+        //}
     }
 }
   static public void main(String[] passedArgs) {

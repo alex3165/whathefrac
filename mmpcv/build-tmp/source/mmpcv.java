@@ -65,7 +65,7 @@ public void draw() {
     if (p != null) {
       //RAINBOWWW HAHAHA
       fill(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
-      ellipse(p.x, p.y, 10, 10);
+      // ellipse(p.x, p.y, 10, 10);
     }
   }
 }

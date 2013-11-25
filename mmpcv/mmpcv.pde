@@ -4,16 +4,11 @@ import com.modestmaps.core.*;
 import com.modestmaps.geo.*;
 import com.modestmaps.providers.*;
 
-import java.util.Random;
-
-/*
-
-modification de test lisa
-*/
 InteractiveMap map;
 ArrayList<Location> locations = new ArrayList<Location>();
 
-Random randomGenerator = new Random();
+PImage img;
+boolean g = true;
 
 void setup() {
   size(1280, 720, OPENGL);
@@ -32,11 +27,17 @@ void setup() {
   });
   
   parseLocations("coordonnees.csv");
+  img = loadImage("mapvector.png");
+  imageMode(CENTER);
 }
 
 void draw() {
   background(0);
-  map.draw();
+  // map.draw();
+  if (g){
+    image(img, width/2, height/2);
+  }
+  
   handleKeys();
   
   Point2f p = null;
@@ -44,11 +45,36 @@ void draw() {
   for (Location loc : locations) {
     p = map.locationPoint(loc);
     if (p != null) {
-      //RAINBOWWW HAHAHA
-      fill(randomGenerator.nextInt(255), randomGenerator.nextInt(255), randomGenerator.nextInt(255));
       // ellipse(p.x, p.y, 10, 10);
+      Motif(p.x, p.y, 6);
     }
   }
+}
+
+
+void Motif(float px, float py, float ray){
+
+    float n=6;
+    float angle = 0;
+    float distribution = TWO_PI/n;
+    smooth(); 
+    shapeMode(CENTER);
+    fill(224,83,72,90);
+    noStroke();
+    beginShape();
+    for(int i =0; i<8; i++){ 
+      vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
+      angle+=distribution;
+    }
+    endShape(CLOSE);
+}
+
+
+void keyPressed(){
+  if (g ==true)
+  g = false;
+  else
+  g = true;
 }
 
 void parseLocations(String filename) {

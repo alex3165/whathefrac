@@ -24,6 +24,13 @@ String[] liste;
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 
 int linesdatas = 0, count = 0;
+boolean unique = true, drag = false;
+
+// PVector[] posrect = new PVector[datas1983.length];
+
+Visuelhexa visuelpressed, visueldragged;
+
+int countvisu = 0;
 
 public void setup(){
     size(1280, 720);
@@ -39,11 +46,14 @@ public void setup(){
 
 public void draw(){
     background(23, 33, 48);
-    for (Visuelhexa mesvisuels : visuels){
-        mesvisuels.dessin();
-    }
-}
+    for (Visuelhexa monvisuel : visuels){
+        monvisuel.dessin();
 
+    }
+    // println(visueldragged.px); 
+    // visueldragged.py = mouseY;
+    countvisu = 0;
+}
 
 public void parseDatas(){
     liste = loadStrings("datas.csv");
@@ -61,12 +71,37 @@ public void parseDatas(){
         }
     }
 }
+
+public void mouseDragged(){
+    for (Visuelhexa monvisuel : visuels){
+        if (monvisuel.bing){
+            countvisu++;
+            if (countvisu == 1){
+                monvisuel.px = mouseX;
+                monvisuel.py = mouseY;
+            }
+        }else {
+            drag = false;
+        }
+    }
+}
+
+public void mousePressed(){
+    // for (int i = 0; i<datas1983.length; i++){
+    //     if (notif){
+    //         visuelpressed = 
+    //     }
+    // }
+}
+
 class Visuelhexa {
 	
 	float n=6;
     float angle = 0;
     float distribution = TWO_PI/n;
 	float px, py, ray;
+
+    boolean bing = false, notif = false;
 
 	Visuelhexa (float posx, float posy, float rayon) {
 		px = posx;
@@ -86,13 +121,24 @@ class Visuelhexa {
           angle+=distribution;
         }
         endShape(CLOSE);
+        fill(0,80);
+        noStroke();
+        // ellipse(px, py, ray*2.6, ray*2.6);
         detection();
 	}
 
     public void detection(){
-        // if (){
-            
-        // }
+        float distance = dist(mouseX, mouseY, px, py);
+        if (distance <= ray){
+            // println("BING");
+            bing = true;
+        }
+    }
+
+    public void notification(){
+        if (mousePressed && bing){
+            notif = true;
+        }
     }
 }
   static public void main(String[] passedArgs) {

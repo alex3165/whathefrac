@@ -8,6 +8,13 @@ String[] liste;
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 
 int linesdatas = 0, count = 0;
+boolean unique = true, drag = false;
+
+// PVector[] posrect = new PVector[datas1983.length];
+
+Visuelhexa visuelpressed, visueldragged;
+
+int countvisu = 0;
 
 void setup(){
     size(1280, 720);
@@ -23,10 +30,39 @@ void setup(){
 
 void draw(){
     background(23, 33, 48);
-    for (Visuelhexa mesvisuels : visuels){
-        // mesvisuels.dessin();
+    for (Visuelhexa monvisuel : visuels){
+        monvisuel.dessin();
+
+    }
+    countvisu = 0;
+}
+
+
+void mouseDragged(){
+    for (Visuelhexa monvisuel : visuels){
+        if (monvisuel.bing){
+            countvisu++;
+            if (countvisu == 1){
+                monvisuel.px = mouseX;
+                monvisuel.py = mouseY;
+            }
+        }else {
+            drag = false;
+        }
     }
 }
+
+void mousePressed(){
+    // Notification sur clic de souris, détection de l'objet visuel
+}
+
+
+
+/* -----------------------------
+
+    ICI ON PARSE LES DONNEES
+
+------------------------------- */
 
 
 void parseDatas(){

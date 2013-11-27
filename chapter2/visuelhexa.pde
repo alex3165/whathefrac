@@ -27,6 +27,7 @@ class Visuelhexa {
         }
         endShape(CLOSE);
         notification();
+        // thread("lineartiste()");
 	}
 
     void detection(){

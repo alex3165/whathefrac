@@ -1,58 +1,35 @@
-float x = 25;
-float y = 25;
-float x2 = 20;
-float y2 = 20;
-float x3 = 15;
-float y3 = 15;
-float sw = 0.5;
-  
-void setup(){
-  size(700,400);
-  noStroke();
-  smooth();
+void setup() {
+
+size(1000, 640, P3D);
+background(0,29,58);
+
 }
-  
-void draw(){
-  background(25);
-  frameRate(20);
-    
-  noFill();
-  ellipse(pmouseX, pmouseY, 100, 100); // center circle
-    
-  //
-  noFill();
-  strokeWeight(sw);
-    
-  // increasing variables
-  x += 15;
-  y += 15;
-  x2 += 10;
-  y2 += 10;
-  x3 += 5;
-  y3 += 5;
-  
-    
-  //
-  stroke(255, random(200,255));
-  ellipse(pmouseX, pmouseY, x, y);
-    
-  stroke(255, random(200,255));
-  ellipse(pmouseX, pmouseY, x2, y2);
-    
-  stroke(255, random(200,255));
-  ellipse(pmouseX, pmouseY, x3, y3);
+
+void draw () {
+carre1();
+carre2();
+//ellipse(500, 320, 55, 55);
+
 }
-  
-void mouseDragged(){
-  x = 0;
-  y = 0;
-  x2 = 0;
-  y2 = 0;
-  x3 = 0;
-  y3 = 0;
-    
-  sw += 1;
-   
-  if(sw > 150){
-    sw = 5;}
+
+void carre1() {
+noStroke();
+beginShape();
+fill(255,83,66);
+vertex(460, 200, 0, 0);
+vertex(590, 195, 100, 0);
+vertex(540, 300, 100, 100);
+vertex(470, 300, 0, 100);
+endShape();
+}
+
+void carre2() {
+noStroke();
+beginShape();
+fill(255,83,66);
+vertex(400, 220, 0, 0);
+vertex(330, 240, 100, 0);
+vertex(440, 320, 100, 100);
+vertex(450, 310, 0, 100);
+endShape();
 }

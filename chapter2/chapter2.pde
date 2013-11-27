@@ -5,9 +5,13 @@ String[] liste;
 String[][] valeur = new String[cols][rows];
 String[][] datas1983 = new String[144][rows];
 
-ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
+float[] distdashs = {5, 8, 5, 8};
 
-int linesdatas = 0, count = 0;
+ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
+ArrayList<ArrayList<String>> domaine = new ArrayList();
+ArrayList<String> domainetemp = new ArrayList();
+
+int linesdatas = 0, saveindex = 0, saveindex2 = 0, count = 0;
 boolean pressedbing = false;
 
 // PVector[] posrect = new PVector[datas1983.length];
@@ -36,6 +40,26 @@ void draw(){
         monvisuel.dessin();
 
     }
+    lineartiste();
+}
+
+
+void lineartiste(){
+        for (int i = 0; i<visuels.size(); i++){
+        if (datas1983[i][6].equals("Henri YVERGNIAUX")){
+            strokeWeight(1);
+            //line(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py);
+            dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
+            saveindex = i;
+        }
+        if (datas1983[i][6].equals("Michel DIEUZAIDE")){
+            strokeWeight(1);
+            //line(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py);
+            dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
+            saveindex2 = i;
+            // println(i);
+        }
+    }
 }
 
 
@@ -63,11 +87,16 @@ void mousePressed(){
 
 
 
-
 }
 
 void mouseReleased(){
     pressedbing = false;
+    for (int i = 0; i<visuels.size(); i++){
+        if (visuels.get(i).bing){
+            fill(255);
+            rect(visuels.get(i).px, visuels.get(i).py, 60, 30);
+        }
+    }
 }
 
 
@@ -93,4 +122,51 @@ void parseDatas(){
             linesdatas++;
         }
     }
+    for (int i = 0; i<datas1983.length; i++){
+        if (i == 0){
+            domainetemp.add(datas1983[i][3]);
+            domaine.add(0,domainetemp);// datas1983[i][3]
+            println(domaine.get(0));
+        }
+    }
+}
+
+/* ------------------------------------------------------
+
+    Fonction qui permet de faire des traits en pointillé
+
+------------------------------------------------------ */
+
+void dashline(float x0, float y0, float x1, float y1, float[] spacing){ 
+  float distance = dist(x0, y0, x1, y1); 
+  float [ ] xSpacing = new float[spacing.length]; 
+  float [ ] ySpacing = new float[spacing.length]; 
+  float drawn = 0.0;  // amount of distance drawn 
+ 
+  if (distance > 0) 
+  { 
+    int i; 
+    boolean drawLine = true; // alternate between dashes and gaps 
+
+    for (i = 0; i < spacing.length; i++) 
+    { 
+      xSpacing[i] = lerp(0, (x1 - x0), spacing[i] / distance); 
+      ySpacing[i] = lerp(0, (y1 - y0), spacing[i] / distance); 
+    } 
+ 
+    i = 0; 
+    while (drawn < distance) 
+    { 
+      if (drawLine) 
+      { 
+        line(x0, y0, x0 + xSpacing[i], y0 + ySpacing[i]); 
+      } 
+      x0 += xSpacing[i]; 
+      y0 += ySpacing[i]; 
+      /* Add distance "drawn" by this line or gap */ 
+      drawn = drawn + mag(xSpacing[i], ySpacing[i]); 
+      i = (i + 1) % spacing.length;  // cycle through array 
+      drawLine = !drawLine;  // switch between dash and gap 
+    } 
+  } 
 }

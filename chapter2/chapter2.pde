@@ -1,20 +1,22 @@
 int rows = 7, cols = 4788;
 float taillevisuels;
 
+String[] liste;
 String[][] valeur = new String[cols][rows];
 String[][] datas1983 = new String[144][rows];
-String[] liste;
 
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 
 int linesdatas = 0, count = 0;
-boolean unique = true, drag = false;
+boolean pressedbing = false;
 
 // PVector[] posrect = new PVector[datas1983.length];
 
 Visuelhexa visuelpressed, visueldragged;
 
-int countvisu = 0;
+int indexdrag;
+
+
 
 void setup(){
     size(1280, 720);
@@ -34,28 +36,38 @@ void draw(){
         monvisuel.dessin();
 
     }
-    countvisu = 0;
 }
 
 
 void mouseDragged(){
-    for (Visuelhexa monvisuel : visuels){
-        if (monvisuel.bing){
-            countvisu++;
-            if (countvisu == 1){
-                monvisuel.px = mouseX;
-                monvisuel.py = mouseY;
-            }
-        }else {
-            drag = false;
-        }
+    if (pressedbing){
+        visuels.get(indexdrag).px = mouseX;
+        visuels.get(indexdrag).py = mouseY;
     }
 }
 
 void mousePressed(){
-    // Notification sur clic de souris, détection de l'objet visuel
+
+    /* ------------ DETECTION DU CLIC POUR LE DRAG N DROP ----------- */
+
+    for (int i = 0; i<visuels.size(); i++){
+        visuels.get(i).detection();
+        if (visuels.get(i).bing){
+            indexdrag = i;
+            pressedbing = true;
+            break;
+        }
+    }
+    
+    /* ------------ DETECTION DU CLIC POUR LA NOTIFICATION ----------- */
+
+
+
 }
 
+void mouseReleased(){
+    pressedbing = false;
+}
 
 
 /* -----------------------------

@@ -1,0 +1,9 @@
+
+- Créer un lien entre les oeuvres si le nom et prénom de l'artiste est le même.
+
+- Faire l'objet visuel du domaine d'une oeuvre (nom objet : domaine).
+
+- Algorithme de détection si le domaine est bon sur drag n drop d'une oeuvre.
+
+- Rapprochement des objets domaines lorsqu'une oeuvre est intégrée et qu'elle est bonne.
+

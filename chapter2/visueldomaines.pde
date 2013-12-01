@@ -1,27 +1,40 @@
 class Visudom
 {
 	
-	float n; // nombre de segments
+	int n; // nombre de segments
 	float rayon;
 	float angle = 0;
 	float distribution;
 	PVector centre;
+	float [] rayons;
+	float rayonrandx, rayonrandy;
+	String labeldom;
 	
-	Visudom (float rayon) {
+	Visudom (float rayon, String labeldom) {
+		this.labeldom = labeldom;
 		n = 4;
-		distribution = TWO_PI/n;
 		this.rayon = rayon;
-		centre = new PVector (random(100, width-100),random(100, height-100));;
+		rayons = new float [n];
+		rayons[0] = random(rayon*0.2, rayon);
+		rayons[1] = rayon - rayons[0];
+		rayons[2] = random(rayon*0.2, rayon);
+		rayons[3] = rayon - rayons[2];
+ 		distribution = TWO_PI/n;
+		centre = new PVector (random(100, width-100),random(100, height-100));
 	}
 
 	void dessin(){
-		fill(255,83,66);
+		
 		noStroke();
+
+		fill(255,83,66);
 		beginShape();
-			for(int i =0; i<n; i++){ 
-			  vertex(centre.x + cos(angle)*rayon, centre.y+ sin(angle)*rayon);
+			for(int i =0; i<n; i++){
+			  vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
 			  angle+=distribution;
 			}
 		endShape(CLOSE);
+				fill(255);
+		text(labeldom, centre.x, centre.y);
 	}
 }

@@ -24,7 +24,7 @@ void setup(){
     size(1280, 720,P2D);
     background(23, 33, 48);
     parseDatas();
-    
+    textMode(CENTER);
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
         taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
@@ -35,13 +35,13 @@ void setup(){
 
 void draw(){
     background(23, 33, 48);
+    lineartiste();
     for (Visudom visueldomaine : visusdom){
       visueldomaine.dessin();
     }
     for (Visuelhexa monvisuel : visuels){
         monvisuel.dessin();
     }
-    lineartiste();
 }
 
 
@@ -160,9 +160,20 @@ void parseDatas(){
      nbdomaine[6] = o3d;
      nbdomaine[7] = objd;
 
+     String[] labeldomaine = new String[8];
+
+     labeldomaine[0] = "peinture";
+     labeldomaine[1] = "estampe";
+     labeldomaine[2] = "sculpture";
+     labeldomaine[3] = "photographie";
+     labeldomaine[4] = "plr";
+     labeldomaine[5] = "dessin";
+     labeldomaine[6] = "o3d";
+     labeldomaine[7] = "objd";
+
      for (int i = 0; i<nbdomaine.length; i++){
-       nbdomaine[i] = int(map(nbdomaine[i], 1, 44, 20, 100));
-       visusdom[i] = new Visudom(nbdomaine[i]);
+       nbdomaine[i] = int(map(nbdomaine[i], 1, 44, 40, 120));
+       visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);
      }
 }
 

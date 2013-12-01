@@ -1,14 +1,18 @@
 class Visuelhexa {
 	
-	float n=6;
-    float angle = 0;
-    float distribution = TWO_PI/n;
+	float n;
+    float angle;
+    float distribution;
 	float px, py, ray;
     int indexvisuelbing;
 
-    boolean bing = false, notif = false;
+    boolean bing;
 
 	Visuelhexa (float posx, float posy, float rayon) {
+        n = 6;
+        angle = 0;
+        distribution = TWO_PI/n;
+        bing = false;
 		px = posx;
 		py = posy;
 		ray = rayon;
@@ -21,12 +25,11 @@ class Visuelhexa {
         stroke(255,80);
         strokeWeight((ray*0.7));
         beginShape();
-        for(int i =0; i<8; i++){ 
+        for(int i =0; i<n; i++){ 
           vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
           angle+=distribution;
         }
         endShape(CLOSE);
-        notification();
         // thread("lineartiste()");
 	}
 
@@ -40,9 +43,4 @@ class Visuelhexa {
         }
     }
 
-    void notification(){
-        if (mousePressed && bing){
-            notif = true;
-        }
-    }
 }

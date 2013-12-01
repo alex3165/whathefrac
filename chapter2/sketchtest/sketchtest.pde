@@ -1,35 +1,61 @@
+
+int a = 40;
+PVector mycentre;
+boolean numbers = true;
+
+
 void setup() {
 
-size(1000, 640, P3D);
+size(1000, 640);
 background(0,29,58);
-
+mycentre = new PVector(random(0, width-180),random(100, height-100));
 }
 
 void draw () {
-carre1();
-carre2();
-//ellipse(500, 320, 55, 55);
 
 }
 
-void carre1() {
-noStroke();
-beginShape();
-fill(255,83,66);
-vertex(460, 200, 0, 0);
-vertex(590, 195, 100, 0);
-vertex(540, 300, 100, 100);
-vertex(470, 300, 0, 100);
-endShape();
+
+
+
+void visueldom(){
+	float n=4;// nombre de segments
+	float rayon = 40;
+	float angle = 0;
+	float distribution = TWO_PI/n;
+	float x= 50;
+	float y= 50;
+	smooth();
+	beginShape();
+	for(int i =0; i<9; i++){ 
+	  vertex(x + cos(angle)*rayon, y+ sin(angle)*rayon);
+	  angle+=distribution;
+	}
+	endShape(CLOSE);
 }
 
-void carre2() {
-noStroke();
-beginShape();
-fill(255,83,66);
-vertex(400, 220, 0, 0);
-vertex(330, 240, 100, 0);
-vertex(440, 320, 100, 100);
-vertex(450, 310, 0, 100);
-endShape();
+
+
+void carre(int aire, PVector centre) {
+
+	
+		float xvertex = random(centre.x-aire, centre.x);
+		float x2vertex = random(centre.x, centre.x+aire);
+		float d1length = x2vertex - xvertex;
+		float d2length = (2*aire)/d1length;
+		float yvertex = random(0, d2length*0.8);
+		float yvertex2 = d2length - yvertex;
+	
+
+		noStroke();
+
+		fill(255,83,66);
+
+		beginShape();
+		vertex(centre.x, yvertex);
+		vertex(xvertex, centre.y);
+		vertex(centre.x, yvertex2);
+		vertex(x2vertex, centre.y);
+		endShape();
+
 }

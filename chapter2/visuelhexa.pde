@@ -3,9 +3,10 @@ class Visuelhexa {
 	float n;
     float angle;
     float distribution;
-	float px, py, ray;
+	float px, py;
+    float ray;
     int indexvisuelbing;
-
+    float distance;
     boolean bing;
 
 	Visuelhexa (float posx, float posy, float rayon) {
@@ -19,6 +20,7 @@ class Visuelhexa {
 	}
 
 	void dessin(){
+        angle = 0;
         smooth(); 
         shapeMode(CENTER);
         fill(255);
@@ -34,9 +36,9 @@ class Visuelhexa {
 	}
 
     void detection(){
-        float distance = dist(mouseX, mouseY, px, py);
+        distance = dist(mouseX, mouseY, px, py);
         if (distance <= ray){
-            // println( " BING ");
+            // println( " BING hexa ");
             bing = true;
         }else {
             bing = false;

@@ -34,13 +34,12 @@ boolean pressedbing = false;
 Visuelhexa visuelpressed, visueldragged;
 Visudom[] visusdom = new Visudom[8];
 int indexdrag;
-
+float distance;
 
 public void setup(){
     size(1280, 720,P2D);
     background(23, 33, 48);
     parseDatas();
-    textMode(CENTER);
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois expos\u00e9s
         taillevisuels = map(PApplet.parseFloat(datas1983[i][2]), 0, 43, 4, 43);
@@ -51,35 +50,36 @@ public void setup(){
 
 public void draw(){
     background(23, 33, 48);
-    lineartiste();
+    //lineartiste();
     for (Visudom visueldomaine : visusdom){
       visueldomaine.dessin();
     }
     for (Visuelhexa monvisuel : visuels){
-        monvisuel.dessin();
+      monvisuel.dessin();
     }
+
 }
 
 
 public void lineartiste(){
-        for (int i = 0; i<visuels.size(); i++){
-        if (datas1983[i][6].equals("Henri YVERGNIAUX")){
-            strokeWeight(1);
-            dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
-            saveindex = i;
-        }
-        if (datas1983[i][6].equals("Michel DIEUZAIDE")){
-            strokeWeight(1);
-            dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
-            saveindex2 = i;
-        }
+        // for (int i = 0; i<visuels.size(); i++){
+        // if (datas1983[i][6].equals("Henri YVERGNIAUX")){
+        //     strokeWeight(1);
+        //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
+        //     saveindex = i;
+        // }
+        // if (datas1983[i][6].equals("Michel DIEUZAIDE")){
+        //     strokeWeight(1);
+        //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
+        //     saveindex2 = i;
+        // }
           // for (int j = visuels.size()-1; j>=0; j--){
           //   if (datas1983[i][6].equals(datas1983[j][6])){
           //     strokeWeight(1);
           //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
           //   }
           // }
-        }
+        //}
 }
 
 
@@ -104,13 +104,22 @@ public void mousePressed(){
     }
     
     /* ------------ DETECTION DU CLIC POUR LA NOTIFICATION ----------- */
-
-
-
 }
 
 public void mouseReleased(){
-    pressedbing = false;
+  pressedbing = false;
+
+  /* ------------ DETECTION DU DOMAINE LORS D'UN DROP D'UNE OEUVRE ----------- */
+
+  for (int i = 0; i<visusdom.length; i++){
+    for (int j = 0; j<visuels.size(); j++){
+      visusdom[i].detection();
+      visuels.get(j).detection();
+      if (visuels.get(j).bing && visusdom[i].bing){
+        
+      }
+    }
+  }
 }
 
 
@@ -243,6 +252,8 @@ class Visudom
 	float [] rayons;
 	float rayonrandx, rayonrandy;
 	String labeldom;
+	float distance;
+	boolean init, bing;
 	
 	Visudom (float rayon, String labeldom) {
 		this.labeldom = labeldom;
@@ -250,17 +261,24 @@ class Visudom
 		this.rayon = rayon;
 		rayons = new float [n];
 		rayons[0] = random(rayon*0.2f, rayon);
-		rayons[1] = rayon - rayons[0];
+		rayons[1] = rayons[0] - rayon;
 		rayons[2] = random(rayon*0.2f, rayon);
-		rayons[3] = rayon - rayons[2];
+		rayons[3] = rayons[2] - rayon;
  		distribution = TWO_PI/n;
 		centre = new PVector (random(100, width-100),random(100, height-100));
+		init = true;
+	}
+
+	public void initialisation(){
+		if (init){
+			init = false;
+		}
 	}
 
 	public void dessin(){
-		
+		//initialisation();
+		angle = 0;
 		noStroke();
-
 		fill(255,83,66);
 		beginShape();
 			for(int i =0; i<n; i++){
@@ -268,18 +286,29 @@ class Visudom
 			  angle+=distribution;
 			}
 		endShape(CLOSE);
-				fill(255);
+		fill(255);
 		text(labeldom, centre.x, centre.y);
 	}
+
+	public void detection(){
+        distance = dist(mouseX, mouseY, centre.x, centre.y);
+        if (distance <= 30){
+            // print( " BING domaine ");
+            bing = true;
+        }else {
+            bing = false;
+        }
+    }
 }
 class Visuelhexa {
 	
 	float n;
     float angle;
     float distribution;
-	float px, py, ray;
+	float px, py;
+    float ray;
     int indexvisuelbing;
-
+    float distance;
     boolean bing;
 
 	Visuelhexa (float posx, float posy, float rayon) {
@@ -293,6 +322,7 @@ class Visuelhexa {
 	}
 
 	public void dessin(){
+        angle = 0;
         smooth(); 
         shapeMode(CENTER);
         fill(255);
@@ -308,9 +338,9 @@ class Visuelhexa {
 	}
 
     public void detection(){
-        float distance = dist(mouseX, mouseY, px, py);
+        distance = dist(mouseX, mouseY, px, py);
         if (distance <= ray){
-            // println( " BING ");
+            // println( " BING hexa ");
             bing = true;
         }else {
             bing = false;

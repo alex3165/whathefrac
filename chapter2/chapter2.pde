@@ -18,13 +18,12 @@ boolean pressedbing = false;
 Visuelhexa visuelpressed, visueldragged;
 Visudom[] visusdom = new Visudom[8];
 int indexdrag;
-
+float distance;
 
 void setup(){
     size(1280, 720,P2D);
     background(23, 33, 48);
     parseDatas();
-    textMode(CENTER);
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
         taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
@@ -35,35 +34,36 @@ void setup(){
 
 void draw(){
     background(23, 33, 48);
-    lineartiste();
+    //lineartiste();
     for (Visudom visueldomaine : visusdom){
       visueldomaine.dessin();
     }
     for (Visuelhexa monvisuel : visuels){
-        monvisuel.dessin();
+      monvisuel.dessin();
     }
+
 }
 
 
 void lineartiste(){
-        for (int i = 0; i<visuels.size(); i++){
-        if (datas1983[i][6].equals("Henri YVERGNIAUX")){
-            strokeWeight(1);
-            dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
-            saveindex = i;
-        }
-        if (datas1983[i][6].equals("Michel DIEUZAIDE")){
-            strokeWeight(1);
-            dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
-            saveindex2 = i;
-        }
+        // for (int i = 0; i<visuels.size(); i++){
+        // if (datas1983[i][6].equals("Henri YVERGNIAUX")){
+        //     strokeWeight(1);
+        //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
+        //     saveindex = i;
+        // }
+        // if (datas1983[i][6].equals("Michel DIEUZAIDE")){
+        //     strokeWeight(1);
+        //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
+        //     saveindex2 = i;
+        // }
           // for (int j = visuels.size()-1; j>=0; j--){
           //   if (datas1983[i][6].equals(datas1983[j][6])){
           //     strokeWeight(1);
           //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
           //   }
           // }
-        }
+        //}
 }
 
 
@@ -88,13 +88,22 @@ void mousePressed(){
     }
     
     /* ------------ DETECTION DU CLIC POUR LA NOTIFICATION ----------- */
-
-
-
 }
 
 void mouseReleased(){
-    pressedbing = false;
+  pressedbing = false;
+
+  /* ------------ DETECTION DU DOMAINE LORS D'UN DROP D'UNE OEUVRE ----------- */
+
+  for (int i = 0; i<visusdom.length; i++){
+    for (int j = 0; j<visuels.size(); j++){
+      visusdom[i].detection();
+      visuels.get(j).detection();
+      if (visuels.get(j).bing && visusdom[i].bing){
+        
+      }
+    }
+  }
 }
 
 

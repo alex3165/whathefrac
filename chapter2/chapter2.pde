@@ -1,3 +1,5 @@
+import java.io.*;
+
 int rows = 7, cols = 4788;
 float taillevisuels;
 
@@ -12,7 +14,7 @@ ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 
 int linesdatas = 0, saveindex = 0, saveindex2 = 0, count = 0;
 boolean pressedbing = false;
-
+String yo = "198.168.1.10";
 // PVector[] posrect = new PVector[datas1983.length];
 
 Visuelhexa visuelpressed, visueldragged;
@@ -20,21 +22,27 @@ Visudom[] visusdom = new Visudom[8];
 int indexdrag;
 float distance;
 
+int[] nbdomaine = new int[8];
+String[] labeldomaine = new String[8];
+
+float cx, cy, angledom = 45, facteur, pointx, pointy;
+
 void setup(){
-    size(1280, 720,P2D);
+    size(1280, 720);
     background(23, 33, 48);
     parseDatas();
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
         taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
-        visuels.add(new Visuelhexa (random(0+43,width-43), random(0+43, height-43), taillevisuels));
+        visuels.add(new Visuelhexa (random(0+43,width-43), random(0+43, height-43), taillevisuels, datas1983[i][3], datas1983[i][4], datas1983[i][5]));
     }
+    // boolean matches("");
 }
 
 
 void draw(){
     background(23, 33, 48);
-    //lineartiste();
+    lineartiste();
     for (Visudom visueldomaine : visusdom){
       visueldomaine.dessin();
     }
@@ -44,26 +52,45 @@ void draw(){
 
 }
 
+void fabricdomaine(){
+   
+   cx = width/2;
+   cy = height/2;
+   for (int i = 0; i<nbdomaine.length; i++){
+     nbdomaine[i] = int(map(nbdomaine[i], 1, 44, 40, 120));
+     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);//pointx,pointy
+     if (angledom<=360){
+       angledom += angledom;
+     }else{
+       angledom = 0;
+     }
+     
+   }
+
+
+}
+
 
 void lineartiste(){
-        // for (int i = 0; i<visuels.size(); i++){
-        // if (datas1983[i][6].equals("Henri YVERGNIAUX")){
-        //     strokeWeight(1);
-        //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
-        //     saveindex = i;
-        // }
-        // if (datas1983[i][6].equals("Michel DIEUZAIDE")){
-        //     strokeWeight(1);
-        //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
-        //     saveindex2 = i;
-        // }
+    saveindex = 0;
+        //for (int i = 0; i<visuels.size(); i++){
+          // if (datas1983[i][6].equals("Henri YVERGNIAUX")){
+          //     strokeWeight(1);
+          //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
+          //     saveindex = i;
+          // }
+          // if (datas1983[i][6].equals("Michel DIEUZAIDE")){
+          //     strokeWeight(1);
+          //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
+          //     saveindex2 = i;
+          // }
           // for (int j = visuels.size()-1; j>=0; j--){
           //   if (datas1983[i][6].equals(datas1983[j][6])){
           //     strokeWeight(1);
           //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
           //   }
           // }
-        //}
+       // }
 }
 
 
@@ -81,10 +108,13 @@ void mousePressed(){
     for (int i = 0; i<visuels.size(); i++){
         visuels.get(i).detection();
         if (visuels.get(i).bing){
+            visuels.get(i).savex = mouseX;
+            visuels.get(i).savey = mouseY;
             indexdrag = i;
             pressedbing = true;
             break;
         }
+          
     }
     
     /* ------------ DETECTION DU CLIC POUR LA NOTIFICATION ----------- */
@@ -99,8 +129,15 @@ void mouseReleased(){
     for (int j = 0; j<visuels.size(); j++){
       visusdom[i].detection();
       visuels.get(j).detection();
-      if (visuels.get(j).bing && visusdom[i].bing){
-        
+      // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
+      if (int(visuels.get(j).savex) == mouseX && int(visuels.get(j).savey) == mouseY){
+        image(visuels.get(j).imageoeuvre, visuels.get(j).px, visuels.get(j).py);
+        // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
+      }
+      if (visuels.get(j).bing && visusdom[i].bing && visuels.get(j).domaine.equals(visusdom[i].labeldom)){ // && datas1983[j][3] == visusdom[i].labeldom
+        println(datas1983[j][3] + " " + visusdom[i].labeldom);
+        visuels.remove(j);
+        break;
       }
     }
   }
@@ -135,7 +172,6 @@ void parseDatas(){
 /* ---------------- Fabrication du tableau de domaines ---------------- */
 
     int peinture = 0, estampe = 0, sculpture = 0, photographie = 0, plr = 0, dessin = 0, o3d = 0, objd = 0;
-    int[] nbdomaine = new int[8];
 
      for (int i = 0; i<datas1983.length; i++){
         if (datas1983[i][3].equals("Peinture")){
@@ -156,9 +192,6 @@ void parseDatas(){
             objd++;
         }
 
-        // switch (datas1983[i][3].equals("")){
-          
-        // }
      }
      nbdomaine[0] = peinture;
      nbdomaine[1] = estampe;
@@ -169,21 +202,18 @@ void parseDatas(){
      nbdomaine[6] = o3d;
      nbdomaine[7] = objd;
 
-     String[] labeldomaine = new String[8];
 
-     labeldomaine[0] = "peinture";
-     labeldomaine[1] = "estampe";
-     labeldomaine[2] = "sculpture";
-     labeldomaine[3] = "photographie";
-     labeldomaine[4] = "plr";
-     labeldomaine[5] = "dessin";
-     labeldomaine[6] = "o3d";
-     labeldomaine[7] = "objd";
+     labeldomaine[0] = "Peinture";
+     labeldomaine[1] = "Estampe";
+     labeldomaine[2] = "Sculpture";
+     labeldomaine[3] = "Photographie";
+     labeldomaine[4] = "Publication, livre, reliure";
+     labeldomaine[5] = "Dessin";
+     labeldomaine[6] = "Oeuvre en 3 dimensions";
+     labeldomaine[7] = "Objet/Design";
 
-     for (int i = 0; i<nbdomaine.length; i++){
-       nbdomaine[i] = int(map(nbdomaine[i], 1, 44, 40, 120));
-       visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);
-     }
+     fabricdomaine();
+
 }
 
 /* ------------------------------------------------------
@@ -194,8 +224,8 @@ void parseDatas(){
 
 void dashline(float x0, float y0, float x1, float y1, float[] spacing){
   float distance = dist(x0, y0, x1, y1);
-  float [ ] xSpacing = new float[spacing.length];
-  float [ ] ySpacing = new float[spacing.length];
+  float [] xSpacing = new float[spacing.length];
+  float [] ySpacing = new float[spacing.length];
   float drawn = 0.0;
 
   if (distance > 0)

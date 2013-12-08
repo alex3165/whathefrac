@@ -10,12 +10,16 @@ class Visudom
 	float rayonrandx, rayonrandy;
 	String labeldom;
 	float distance;
+	float centrex;
+	float centrey;
 	boolean init, bing;
 	
-	Visudom (float rayon, String labeldom) {
+	Visudom (float rayon, String labeldom) { //float centrex, float centrey
 		this.labeldom = labeldom;
 		n = 4;
 		this.rayon = rayon;
+		// this.centrex = centrex;
+		// this.centrey = centrey;
 		rayons = new float [n];
 		rayons[0] = random(rayon*0.2, rayon);
 		rayons[1] = rayons[0] - rayon;

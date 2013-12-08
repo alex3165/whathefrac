@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F8DB8B74-87A2-4EF8-A9FB-0EB8732C2DD9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FlashGRAV</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FD0664BD-DFA9-456D-8A01-1CB0E476453E</key>
+		<string>https://github.com/alex3165/whathefrac.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>pjs_ios/FrameMarkers-2-0-6/FlashGRAV.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FD0664BD-DFA9-456D-8A01-1CB0E476453E</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/alex3165/whathefrac.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FD0664BD-DFA9-456D-8A01-1CB0E476453E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FD0664BD-DFA9-456D-8A01-1CB0E476453E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>whatthefrac</string>
+		</dict>
+	</array>
+</dict>
+</plist>

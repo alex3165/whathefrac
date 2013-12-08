@@ -8,15 +8,24 @@ class Visuelhexa {
     int indexvisuelbing;
     float distance;
     boolean bing;
+    String domaine;
+    // String photoeuvre;
+    String nomoeuvre;
+    float savex, savey;
+    PImage imageoeuvre;
 
-	Visuelhexa (float posx, float posy, float rayon) {
+	Visuelhexa (float posx, float posy, float rayon, String domaine, String photoeuvre, String nomoeuvre) {
         n = 6;
         angle = 0;
+        this.domaine = domaine;
+        // this.photoeuvre = photoeuvre;
+        this.nomoeuvre = nomoeuvre;
         distribution = TWO_PI/n;
         bing = false;
 		px = posx;
 		py = posy;
 		ray = rayon;
+        // imageoeuvre = loadImage(photoeuvre);
 	}
 
 	void dessin(){
@@ -44,5 +53,9 @@ class Visuelhexa {
             bing = false;
         }
     }
+
+    // void lineartiste(){
+
+    // }
 
 }

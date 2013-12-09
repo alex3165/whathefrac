@@ -1,0 +1,543 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1519B6F716034D6B00364066 /* app_icon_iPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1519B6F616034D6B00364066 /* app_icon_iPhone.png */; };
+		1519B6FA16034D6D00364066 /* app_icon_iPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1519B6F916034D6D00364066 /* app_icon_iPhone@2x.png */; };
+		1519B6FC16034D7200364066 /* app_icon_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1519B6FB16034D7200364066 /* app_icon_iPad.png */; };
+		1519B6FE16034D7400364066 /* app_icon_iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1519B6FD16034D7400364066 /* app_icon_iPad@2x.png */; };
+		1519B70016034D9600364066 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1519B6FF16034D9600364066 /* Default-Portrait@2x~ipad.png */; };
+		15230E5413B1FB030073F1EB /* FrameMarkersAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15230E5313B1FB030073F1EB /* FrameMarkersAppDelegate.mm */; };
+		1526F6B516380D06006408F8 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1526F6B416380D06006408F8 /* Default-Landscape~ipad.png */; };
+		1526F6B816380D09006408F8 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1526F6B716380D09006408F8 /* Default-Landscape@2x~ipad.png */; };
+		15B17447136846C200AAA492 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B17446136846C200AAA492 /* UIKit.framework */; };
+		15B17449136846C200AAA492 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B17448136846C200AAA492 /* Foundation.framework */; };
+		15B1744B136846C200AAA492 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B1744A136846C200AAA492 /* CoreGraphics.framework */; };
+		15B1744D136846C200AAA492 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B1744C136846C200AAA492 /* QuartzCore.framework */; };
+		15B1744F136846C200AAA492 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B1744E136846C200AAA492 /* OpenGLES.framework */; };
+		15B17458136846C200AAA492 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B17457136846C200AAA492 /* main.m */; };
+		15B174891368519400AAA492 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15B174811368519300AAA492 /* EAGLView.mm */; };
+		15B17492136851B600AAA492 /* letter_A.png in Resources */ = {isa = PBXBuildFile; fileRef = 15B1748D136851B600AAA492 /* letter_A.png */; };
+		15B17493136851B600AAA492 /* letter_C.png in Resources */ = {isa = PBXBuildFile; fileRef = 15B1748E136851B600AAA492 /* letter_C.png */; };
+		15B17494136851B600AAA492 /* letter_Q.png in Resources */ = {isa = PBXBuildFile; fileRef = 15B1748F136851B600AAA492 /* letter_Q.png */; };
+		15B17495136851B600AAA492 /* letter_R.png in Resources */ = {isa = PBXBuildFile; fileRef = 15B17490136851B600AAA492 /* letter_R.png */; };
+		15B174D71368572300AAA492 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B174D21368572300AAA492 /* AVFoundation.framework */; };
+		15B174D81368572300AAA492 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B174D31368572300AAA492 /* CoreMedia.framework */; };
+		15B174D91368572300AAA492 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B174D41368572300AAA492 /* CoreVideo.framework */; };
+		15B174DA1368572300AAA492 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B174D51368572300AAA492 /* Security.framework */; };
+		15B174DB1368572300AAA492 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B174D61368572300AAA492 /* SystemConfiguration.framework */; };
+		15CE868216416899005AE890 /* AR_EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15CE866F16416899005AE890 /* AR_EAGLView.mm */; };
+		15CE868316416899005AE890 /* ARParentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15CE867116416899005AE890 /* ARParentViewController.mm */; };
+		15CE868416416899005AE890 /* ARViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15CE867316416899005AE890 /* ARViewController.mm */; };
+		15CE868616416899005AE890 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE867616416899005AE890 /* OverlayView.m */; };
+		15CE868716416899005AE890 /* OverlayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15CE867816416899005AE890 /* OverlayViewController.mm */; };
+		15CE868816416899005AE890 /* QCARutils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15CE867A16416899005AE890 /* QCARutils.mm */; };
+		15CE868B16416899005AE890 /* ShaderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15CE867E16416899005AE890 /* ShaderUtils.cpp */; };
+		15CE868C16416899005AE890 /* Texture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15CE868116416899005AE890 /* Texture.mm */; };
+		15E927AF161F43FE00D24BBE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E927AE161F43FE00D24BBE /* Default-568h@2x.png */; };
+		76D6750814D064AB003D8330 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D6750714D064AB003D8330 /* Default.png */; };
+		76D6750A14D064B4003D8330 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D6750914D064B4003D8330 /* Default@2x.png */; };
+		76D6750E14D064D9003D8330 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D6750D14D064D9003D8330 /* Default-Portrait~ipad.png */; };
+		AAC2825915067A6D00D9A36B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC2825815067A6D00D9A36B /* CoreMotion.framework */; };
+		F33DE1301854AC42007C3289 /* build in Resources */ = {isa = PBXBuildFile; fileRef = F33DE12F1854AC42007C3289 /* build */; };
+		F33DE1321854AC61007C3289 /* libQCAR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F33DE1311854AC61007C3289 /* libQCAR.a */; };
+		F33DE1341854B272007C3289 /* web-export in Resources */ = {isa = PBXBuildFile; fileRef = F33DE1331854B272007C3289 /* web-export */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1519B6F616034D6B00364066 /* app_icon_iPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_iPhone.png; sourceTree = "<group>"; };
+		1519B6F916034D6D00364066 /* app_icon_iPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon_iPhone@2x.png"; sourceTree = "<group>"; };
+		1519B6FB16034D7200364066 /* app_icon_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_iPad.png; sourceTree = "<group>"; };
+		1519B6FD16034D7400364066 /* app_icon_iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon_iPad@2x.png"; sourceTree = "<group>"; };
+		1519B6FF16034D9600364066 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		15230E5313B1FB030073F1EB /* FrameMarkersAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FrameMarkersAppDelegate.mm; sourceTree = "<group>"; };
+		1526F6B416380D06006408F8 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		1526F6B716380D09006408F8 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		15B17442136846C200AAA492 /* Whathefrac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whathefrac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		15B17446136846C200AAA492 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		15B17448136846C200AAA492 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		15B1744A136846C200AAA492 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		15B1744C136846C200AAA492 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		15B1744E136846C200AAA492 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		15B17452136846C200AAA492 /* Whathefrac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Whathefrac-Info.plist"; sourceTree = "<group>"; };
+		15B17456136846C200AAA492 /* Whathefrac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Whathefrac-Prefix.pch"; sourceTree = "<group>"; };
+		15B17457136846C200AAA492 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		15B17459136846C200AAA492 /* FrameMarkersAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameMarkersAppDelegate.h; sourceTree = "<group>"; };
+		15B174801368519300AAA492 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
+		15B174811368519300AAA492 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
+		15B1748D136851B600AAA492 /* letter_A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = letter_A.png; path = FrameMarkers/assets/letter_A.png; sourceTree = "<group>"; };
+		15B1748E136851B600AAA492 /* letter_C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = letter_C.png; path = FrameMarkers/assets/letter_C.png; sourceTree = "<group>"; };
+		15B1748F136851B600AAA492 /* letter_Q.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = letter_Q.png; path = FrameMarkers/assets/letter_Q.png; sourceTree = "<group>"; };
+		15B17490136851B600AAA492 /* letter_R.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = letter_R.png; path = FrameMarkers/assets/letter_R.png; sourceTree = "<group>"; };
+		15B174D21368572300AAA492 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		15B174D31368572300AAA492 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		15B174D41368572300AAA492 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		15B174D51368572300AAA492 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		15B174D61368572300AAA492 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		15B8B1E6136990D400787075 /* A_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A_object.h; sourceTree = "<group>"; };
+		15B8B1E7136990D400787075 /* C_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C_object.h; sourceTree = "<group>"; };
+		15B8B1E8136990D400787075 /* Q_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q_object.h; sourceTree = "<group>"; };
+		15B8B1E9136990D400787075 /* R_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = R_object.h; sourceTree = "<group>"; };
+		15CE866E16416899005AE890 /* AR_EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AR_EAGLView.h; sourceTree = "<group>"; };
+		15CE866F16416899005AE890 /* AR_EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AR_EAGLView.mm; sourceTree = "<group>"; };
+		15CE867016416899005AE890 /* ARParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARParentViewController.h; sourceTree = "<group>"; };
+		15CE867116416899005AE890 /* ARParentViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARParentViewController.mm; sourceTree = "<group>"; };
+		15CE867216416899005AE890 /* ARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
+		15CE867316416899005AE890 /* ARViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARViewController.mm; sourceTree = "<group>"; };
+		15CE867416416899005AE890 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
+		15CE867516416899005AE890 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		15CE867616416899005AE890 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
+		15CE867716416899005AE890 /* OverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayViewController.h; sourceTree = "<group>"; };
+		15CE867816416899005AE890 /* OverlayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OverlayViewController.mm; sourceTree = "<group>"; };
+		15CE867916416899005AE890 /* QCARutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCARutils.h; sourceTree = "<group>"; };
+		15CE867A16416899005AE890 /* QCARutils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QCARutils.mm; sourceTree = "<group>"; };
+		15CE867C16416899005AE890 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		15CE867D16416899005AE890 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		15CE867E16416899005AE890 /* ShaderUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtils.cpp; sourceTree = "<group>"; };
+		15CE867F16416899005AE890 /* ShaderUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtils.h; sourceTree = "<group>"; };
+		15CE868016416899005AE890 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
+		15CE868116416899005AE890 /* Texture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Texture.mm; sourceTree = "<group>"; };
+		15E927AE161F43FE00D24BBE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		76D6750714D064AB003D8330 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		76D6750914D064B4003D8330 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		76D6750D14D064D9003D8330 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		AAC2825815067A6D00D9A36B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		F33DE12F1854AC42007C3289 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
+		F33DE1311854AC61007C3289 /* libQCAR.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQCAR.a; path = build/lib/arm/libQCAR.a; sourceTree = "<group>"; };
+		F33DE1331854B272007C3289 /* web-export */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "web-export"; sourceTree = "<group>"; };
+		F3DB3C9F16E4CC050011F2D9 /* libQCAR.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libQCAR.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		15B1743F136846C200AAA492 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F33DE1321854AC61007C3289 /* libQCAR.a in Frameworks */,
+				AAC2825915067A6D00D9A36B /* CoreMotion.framework in Frameworks */,
+				15B174D71368572300AAA492 /* AVFoundation.framework in Frameworks */,
+				15B174D81368572300AAA492 /* CoreMedia.framework in Frameworks */,
+				15B174D91368572300AAA492 /* CoreVideo.framework in Frameworks */,
+				15B174DA1368572300AAA492 /* Security.framework in Frameworks */,
+				15B174DB1368572300AAA492 /* SystemConfiguration.framework in Frameworks */,
+				15B17447136846C200AAA492 /* UIKit.framework in Frameworks */,
+				15B17449136846C200AAA492 /* Foundation.framework in Frameworks */,
+				15B1744B136846C200AAA492 /* CoreGraphics.framework in Frameworks */,
+				15B1744D136846C200AAA492 /* QuartzCore.framework in Frameworks */,
+				15B1744F136846C200AAA492 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15B17437136846C200AAA492 = {
+			isa = PBXGroup;
+			children = (
+				F33DE1311854AC61007C3289 /* libQCAR.a */,
+				F33DE12F1854AC42007C3289 /* build */,
+				15CE866D16416884005AE890 /* ARCommon */,
+				1526F6B716380D09006408F8 /* Default-Landscape@2x~ipad.png */,
+				1526F6B416380D06006408F8 /* Default-Landscape~ipad.png */,
+				15E927AE161F43FE00D24BBE /* Default-568h@2x.png */,
+				1519B6FD16034D7400364066 /* app_icon_iPad@2x.png */,
+				1519B6FB16034D7200364066 /* app_icon_iPad.png */,
+				1519B6F916034D6D00364066 /* app_icon_iPhone@2x.png */,
+				1519B6F616034D6B00364066 /* app_icon_iPhone.png */,
+				1519B6FF16034D9600364066 /* Default-Portrait@2x~ipad.png */,
+				76D6750D14D064D9003D8330 /* Default-Portrait~ipad.png */,
+				76D6750914D064B4003D8330 /* Default@2x.png */,
+				76D6750714D064AB003D8330 /* Default.png */,
+				15B17450136846C200AAA492 /* FrameMarkers */,
+				15B174791368471F00AAA492 /* Resources */,
+				15B17445136846C200AAA492 /* Frameworks */,
+				15B17443136846C200AAA492 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		15B17443136846C200AAA492 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15B17442136846C200AAA492 /* Whathefrac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		15B17445136846C200AAA492 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3DB3C9F16E4CC050011F2D9 /* libQCAR.a */,
+				AAC2825815067A6D00D9A36B /* CoreMotion.framework */,
+				15B17446136846C200AAA492 /* UIKit.framework */,
+				15B17448136846C200AAA492 /* Foundation.framework */,
+				15B1744A136846C200AAA492 /* CoreGraphics.framework */,
+				15B1744C136846C200AAA492 /* QuartzCore.framework */,
+				15B1744E136846C200AAA492 /* OpenGLES.framework */,
+				15B174D31368572300AAA492 /* CoreMedia.framework */,
+				15B174D61368572300AAA492 /* SystemConfiguration.framework */,
+				15B174D21368572300AAA492 /* AVFoundation.framework */,
+				15B174D41368572300AAA492 /* CoreVideo.framework */,
+				15B174D51368572300AAA492 /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		15B17450136846C200AAA492 /* FrameMarkers */ = {
+			isa = PBXGroup;
+			children = (
+				F33DE1331854B272007C3289 /* web-export */,
+				15B174801368519300AAA492 /* EAGLView.h */,
+				15B174811368519300AAA492 /* EAGLView.mm */,
+				15B17459136846C200AAA492 /* FrameMarkersAppDelegate.h */,
+				15230E5313B1FB030073F1EB /* FrameMarkersAppDelegate.mm */,
+				15B17451136846C200AAA492 /* Supporting Files */,
+			);
+			path = FrameMarkers;
+			sourceTree = "<group>";
+		};
+		15B17451136846C200AAA492 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				15B8B1E6136990D400787075 /* A_object.h */,
+				15B8B1E7136990D400787075 /* C_object.h */,
+				15B8B1E8136990D400787075 /* Q_object.h */,
+				15B8B1E9136990D400787075 /* R_object.h */,
+				15B17452136846C200AAA492 /* Whathefrac-Info.plist */,
+				15B17456136846C200AAA492 /* Whathefrac-Prefix.pch */,
+				15B17457136846C200AAA492 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		15B174791368471F00AAA492 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				15B1747A1368472900AAA492 /* assets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		15B1747A1368472900AAA492 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				15B1748D136851B600AAA492 /* letter_A.png */,
+				15B1748E136851B600AAA492 /* letter_C.png */,
+				15B1748F136851B600AAA492 /* letter_Q.png */,
+				15B17490136851B600AAA492 /* letter_R.png */,
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
+		15CE866D16416884005AE890 /* ARCommon */ = {
+			isa = PBXGroup;
+			children = (
+				15CE867416416899005AE890 /* License.txt */,
+				15CE866E16416899005AE890 /* AR_EAGLView.h */,
+				15CE866F16416899005AE890 /* AR_EAGLView.mm */,
+				15CE867016416899005AE890 /* ARParentViewController.h */,
+				15CE867116416899005AE890 /* ARParentViewController.mm */,
+				15CE867216416899005AE890 /* ARViewController.h */,
+				15CE867316416899005AE890 /* ARViewController.mm */,
+				15CE867516416899005AE890 /* OverlayView.h */,
+				15CE867616416899005AE890 /* OverlayView.m */,
+				15CE867716416899005AE890 /* OverlayViewController.h */,
+				15CE867816416899005AE890 /* OverlayViewController.mm */,
+				15CE867916416899005AE890 /* QCARutils.h */,
+				15CE867A16416899005AE890 /* QCARutils.mm */,
+				15CE867B16416899005AE890 /* Shaders */,
+				15CE867E16416899005AE890 /* ShaderUtils.cpp */,
+				15CE867F16416899005AE890 /* ShaderUtils.h */,
+				15CE868016416899005AE890 /* Texture.h */,
+				15CE868116416899005AE890 /* Texture.mm */,
+			);
+			path = ARCommon;
+			sourceTree = "<group>";
+		};
+		15CE867B16416899005AE890 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				15CE867C16416899005AE890 /* Shader.fsh */,
+				15CE867D16416899005AE890 /* Shader.vsh */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		15B17441136846C200AAA492 /* Whathefrac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15B1746E136846C200AAA492 /* Build configuration list for PBXNativeTarget "Whathefrac" */;
+			buildPhases = (
+				15B1743E136846C200AAA492 /* Sources */,
+				15B1743F136846C200AAA492 /* Frameworks */,
+				15B17440136846C200AAA492 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Whathefrac;
+			productName = FrameMarkers;
+			productReference = 15B17442136846C200AAA492 /* Whathefrac.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		15B17439136846C200AAA492 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				TargetAttributes = {
+					15B17441136846C200AAA492 = {
+						DevelopmentTeam = 6Z76J8RM7Y;
+					};
+				};
+			};
+			buildConfigurationList = 15B1743C136846C200AAA492 /* Build configuration list for PBXProject "Whathefrac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 15B17437136846C200AAA492;
+			productRefGroup = 15B17443136846C200AAA492 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				15B17441136846C200AAA492 /* Whathefrac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		15B17440136846C200AAA492 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15B17492136851B600AAA492 /* letter_A.png in Resources */,
+				15B17493136851B600AAA492 /* letter_C.png in Resources */,
+				15B17494136851B600AAA492 /* letter_Q.png in Resources */,
+				15B17495136851B600AAA492 /* letter_R.png in Resources */,
+				76D6750814D064AB003D8330 /* Default.png in Resources */,
+				76D6750A14D064B4003D8330 /* Default@2x.png in Resources */,
+				76D6750E14D064D9003D8330 /* Default-Portrait~ipad.png in Resources */,
+				1519B70016034D9600364066 /* Default-Portrait@2x~ipad.png in Resources */,
+				1519B6F716034D6B00364066 /* app_icon_iPhone.png in Resources */,
+				1519B6FA16034D6D00364066 /* app_icon_iPhone@2x.png in Resources */,
+				1519B6FC16034D7200364066 /* app_icon_iPad.png in Resources */,
+				1519B6FE16034D7400364066 /* app_icon_iPad@2x.png in Resources */,
+				15E927AF161F43FE00D24BBE /* Default-568h@2x.png in Resources */,
+				1526F6B516380D06006408F8 /* Default-Landscape~ipad.png in Resources */,
+				1526F6B816380D09006408F8 /* Default-Landscape@2x~ipad.png in Resources */,
+				F33DE1301854AC42007C3289 /* build in Resources */,
+				F33DE1341854B272007C3289 /* web-export in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		15B1743E136846C200AAA492 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15B17458136846C200AAA492 /* main.m in Sources */,
+				15B174891368519400AAA492 /* EAGLView.mm in Sources */,
+				15230E5413B1FB030073F1EB /* FrameMarkersAppDelegate.mm in Sources */,
+				15CE868216416899005AE890 /* AR_EAGLView.mm in Sources */,
+				15CE868316416899005AE890 /* ARParentViewController.mm in Sources */,
+				15CE868416416899005AE890 /* ARViewController.mm in Sources */,
+				15CE868616416899005AE890 /* OverlayView.m in Sources */,
+				15CE868716416899005AE890 /* OverlayViewController.mm in Sources */,
+				15CE868816416899005AE890 /* QCARutils.mm in Sources */,
+				15CE868B16416899005AE890 /* ShaderUtils.cpp in Sources */,
+				15CE868C16416899005AE890 /* Texture.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		15125E5F137050D400EC4CA7 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../build/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = ../../build/lib/arm;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		15125E60137050D400EC4CA7 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FrameMarkers/Whathefrac-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					NS_BLOCK_ASSERTIONS,
+					"$(CONFIGURATION_FLAGS_DEFINE)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = build/include;
+				INFOPLIST_FILE = "FrameMarkers/Whathefrac-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/build/lib/arm\"";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Distribution;
+		};
+		15B1746C136846C200AAA492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../build/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = ../../build/lib/arm;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		15B1746D136846C200AAA492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../build/include;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = ../../build/lib/arm;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		15B1746F136846C200AAA492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FrameMarkers/Whathefrac-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					"$(CONFIGURATION_FLAGS_DEFINE)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = build/include;
+				INFOPLIST_FILE = "FrameMarkers/Whathefrac-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/build/lib/arm\"";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		15B17470136846C200AAA492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FrameMarkers/Whathefrac-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					NS_BLOCK_ASSERTIONS,
+					"$(CONFIGURATION_FLAGS_DEFINE)",
+				);
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = build/include;
+				INFOPLIST_FILE = "FrameMarkers/Whathefrac-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/build/lib/arm\"";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		15B1743C136846C200AAA492 /* Build configuration list for PBXProject "Whathefrac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15B1746C136846C200AAA492 /* Debug */,
+				15B1746D136846C200AAA492 /* Release */,
+				15125E5F137050D400EC4CA7 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15B1746E136846C200AAA492 /* Build configuration list for PBXNativeTarget "Whathefrac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15B1746F136846C200AAA492 /* Debug */,
+				15B17470136846C200AAA492 /* Release */,
+				15125E60137050D400EC4CA7 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 15B17439136846C200AAA492 /* Project object */;
+}

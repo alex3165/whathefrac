@@ -1,4 +1,5 @@
-import java.awt.Polygon;
+//import java.awt.Polygon;
+// import java.awt.*;
 
 int rows = 7, cols = 4788;
 float taillevisuels;
@@ -14,24 +15,30 @@ float[] distdashs = {5, 8, 5, 8};
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 
 int linesdatas = 0, saveindex = 0, saveindex2 = 0, count = 0;
-boolean pressedbing = false;
-boolean l1 = false, l2 = true, l3 = false;
 
-Visuelhexa visuelpressed, visueldragged;
+boolean pressedbing = false;
+boolean l1 = true, l2 = false, l3 = false;
+boolean do1each = true;
+boolean gotoend = false;
+// Visuelhexa visuelpressed, visueldragged;
 Visudom[] visusdom = new Visudom[8];
+Visudom[] visuslayer2 = new Visudom[3];
 int indexdrag;
 float distance;
 
 int[] nbdomaine = new int[8];
 String[] labeldomaine = new String[8];
 
-float cx, cy, angledom = 45, facteur, pointx, pointy;
+float cx, cy, angledom = 45;
+float hexalayer2cx, hexalayer2cy;
 
 int currentseconde, timer;
 
+int loading;
+
 
 void setup(){
-    size(1280, 720);
+    size(1024, 768);
     currentseconde = second();
     background(23, 33, 48);
     font1 = loadFont("latolight.vlw");
@@ -40,12 +47,23 @@ void setup(){
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
         taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
-        visuels.add(new Visuelhexa (random(0+43,width-43), random(0+43, height-43), taillevisuels, datas1983[i][3], datas1983[i][4], datas1983[i][5]));
+        visuels.add(new Visuelhexa (
+            random(0+43,width-43), 
+            random(0+43, height-43), 
+            taillevisuels, 
+            datas1983[i][3], 
+            datas1983[i][4], 
+            datas1983[i][5]
+        ));
     }
+    visuslayer2[0] = new Visudom(40,"test1");
+    visuslayer2[1] = new Visudom(100,"test2");
+    visuslayer2[2] = new Visudom(80,"test3");
 }
 
 
 void draw(){
+  // On fait le timer de secondes.
   if (currentseconde != second()){
       currentseconde = second();
       timer++;
@@ -65,49 +83,6 @@ void draw(){
 
 /* -----------------------------
 
-    Layers de l'application
-
-------------------------------- */
-
-void layer1(){
-    background(23, 33, 48);
-    textFont(font2);
-    textAlign(RIGHT);
-    fill(224, 83, 72);
-    text("make the frac", width/2+60, height/3 + 40);
-    textSize(100);
-    textAlign(CENTER);
-    fill(255);
-    text("- 1983 -", width/2, height/2 + 40);
-    // if (timer>=10){
-    //   l2 = true;
-    //   l1 = false;
-    // }
-}
-
-void layer2(){
-    background(23, 33, 48);
-    textFont(font1);
-    textAlign(CENTER); // A enlever quand on active le layer1
-    // fill(value1, value2, value3, alpha);
-    rect(30, height-60, width - 60, 20);
-    textSize(60);
-    fill(255,90);
-    text("Reconstitue la collection du frac".toUpperCase(), width/2, 60);
-}
-
-void layer3(){
-    background(23, 33, 48);
-    for (Visudom visueldomaine : visusdom){
-      visueldomaine.dessin();
-    }
-    for (Visuelhexa monvisuel : visuels){
-      monvisuel.dessin();
-    }
-}
-
-/* -----------------------------
-
     Permet de recentrer les visuels des domaines lorsque le drag n drop est bon
 
 ------------------------------- */
@@ -119,16 +94,13 @@ void fabricdomaine(){
    cy = height/2;
    for (int i = 0; i<nbdomaine.length; i++){
      nbdomaine[i] = int(map(nbdomaine[i], 1, 44, 40, 120));
-     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);//pointx,pointy
+     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);
      if (angledom<=360){
        angledom += angledom;
      }else{
        angledom = 0;
      }
-     
    }
-
-
 }
 
 
@@ -140,24 +112,24 @@ void fabricdomaine(){
 
 void lineartiste(){
     saveindex = 0;
-        //for (int i = 0; i<visuels.size(); i++){
-          // if (datas1983[i][6].equals("Henri YVERGNIAUX")){
-          //     strokeWeight(1);
-          //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
-          //     saveindex = i;
-          // }
-          // if (datas1983[i][6].equals("Michel DIEUZAIDE")){
-          //     strokeWeight(1);
-          //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
-          //     saveindex2 = i;
-          // }
+        // for (int i = 0; i<visuels.size(); i++){
+        //   if (datas1983[i][6].equals("Henri YVERGNIAUX")){
+        //       strokeWeight(1);
+        //       dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
+        //       saveindex = i;
+        //   }
+        //   if (datas1983[i][6].equals("Michel DIEUZAIDE")){
+        //       strokeWeight(1);
+        //       dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
+        //       saveindex2 = i;
+        //   }
           // for (int j = visuels.size()-1; j>=0; j--){
           //   if (datas1983[i][6].equals(datas1983[j][6])){
           //     strokeWeight(1);
           //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
           //   }
           // }
-       // }
+        //}
 }
 
 
@@ -195,18 +167,34 @@ void mouseReleased(){
     for (int j = 0; j<visuels.size(); j++){
       visusdom[i].detection();
       visuels.get(j).detection();
-      // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
+      
       if (int(visuels.get(j).savex) == mouseX && int(visuels.get(j).savey) == mouseY){
-        image(visuels.get(j).imageoeuvre, visuels.get(j).px, visuels.get(j).py);
+       // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
+        // image(visuels.get(j).imageoeuvre, visuels.get(j).px, visuels.get(j).py);
         // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
+        // if (visuels.get(j).details){
+        //   visuels.get(j).details = false;
+        // }else {
+        //   visuels.get(j).details = true;
+        // }
+        visuels.get(j).details = visuels.get(j).details == true ? false : true;
+
+        println(visuels.get(j) + " " + visuels.get(j).details);
+        gotoend = true;
+        break;
       }
+
       if (visuels.get(j).bing && visusdom[i].bing && visuels.get(j).domaine.equals(visusdom[i].labeldom)){ // && datas1983[j][3] == visusdom[i].labeldom
         println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
         visuels.remove(j);
         break;
       }
     }
+    if (gotoend){
+      break;
+    }
   }
+  gotoend = false;
 }
 
 

@@ -7,21 +7,23 @@ class Visuelhexa {
     float ray;
     int indexvisuelbing;
     float distance;
-    boolean bing;
+    boolean bing, details;
     String domaine;
-    // String photoeuvre;
+    String photoeuvre;
     String nomoeuvre;
     float savex, savey;
     PImage imageoeuvre;
+    float widthtext;
 
 	Visuelhexa (float posx, float posy, float rayon, String domaine, String photoeuvre, String nomoeuvre) {
         n = 6;
         angle = 0;
         this.domaine = domaine;
-        // this.photoeuvre = photoeuvre;
+        this.photoeuvre = photoeuvre;
         this.nomoeuvre = nomoeuvre;
         distribution = TWO_PI/n;
         bing = false;
+        details = false;
 		px = posx;
 		py = posy;
 		ray = rayon;
@@ -42,6 +44,18 @@ class Visuelhexa {
         }
         endShape(CLOSE);
         // thread("lineartiste()");
+        if (details){
+            beginShape();
+                for(int i =0; i<n; i++){ 
+                  vertex(px + cos(angle)*ray*3, py+ sin(angle)*ray*3);
+                  angle+=distribution;
+                }
+            endShape(CLOSE);
+            fill(23, 33, 48);
+            textAlign(CENTER);
+            widthtext = textWidth(nomoeuvre);
+            text(nomoeuvre, px, py);
+        }
 	}
 
     void detection(){
@@ -53,9 +67,5 @@ class Visuelhexa {
             bing = false;
         }
     }
-
-    // void lineartiste(){
-
-    // }
 
 }

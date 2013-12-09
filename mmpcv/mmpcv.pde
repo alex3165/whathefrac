@@ -18,7 +18,7 @@ void setup() {
   String[] subdomains = new String[] { "otile1", "otile2", "otile3", "otile4" }; // optional
   map = new InteractiveMap(this, new TemplatedMapProvider(template, subdomains));
   parseLocations("coordonnees.csv");
-  map.setCenterZoom(new Location(48.11348, -1.67571), 5);
+  map.setCenterZoom(new Location(48.11348, -1.67571), 8);
 
   addMouseWheelListener(new java.awt.event.MouseWheelListener() {
     public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
@@ -32,8 +32,8 @@ void setup() {
 }
 
 void draw() {
-  background(0);
-  map.draw();
+  // background(0);
+  // map.draw();
   // if (g){
   //   image(img, width/2, height/2);
   // }
@@ -59,7 +59,7 @@ void Motif(float px, float py, float ray){
     float distribution = TWO_PI/n;
     smooth(); 
     shapeMode(CENTER);
-    fill(224,83,72,90);
+    fill(23, 33, 48);
     noStroke();
     beginShape();
     for(int i =0; i<8; i++){ 

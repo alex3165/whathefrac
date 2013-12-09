@@ -1,8 +1,9 @@
-import java.io.*;
+import java.awt.Polygon;
 
 int rows = 7, cols = 4788;
 float taillevisuels;
 
+PFont font1, font2;
 
 String[] liste;
 String[][] valeur = new String[cols][rows];
@@ -14,8 +15,7 @@ ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 
 int linesdatas = 0, saveindex = 0, saveindex2 = 0, count = 0;
 boolean pressedbing = false;
-String yo = "198.168.1.10";
-// PVector[] posrect = new PVector[datas1983.length];
+boolean l1 = false, l2 = true, l3 = false;
 
 Visuelhexa visuelpressed, visueldragged;
 Visudom[] visusdom = new Visudom[8];
@@ -27,30 +27,91 @@ String[] labeldomaine = new String[8];
 
 float cx, cy, angledom = 45, facteur, pointx, pointy;
 
+int currentseconde, timer;
+
+
 void setup(){
     size(1280, 720);
+    currentseconde = second();
     background(23, 33, 48);
+    font1 = loadFont("latolight.vlw");
+    font2 = loadFont("canterlight.vlw");
     parseDatas();
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
         taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
         visuels.add(new Visuelhexa (random(0+43,width-43), random(0+43, height-43), taillevisuels, datas1983[i][3], datas1983[i][4], datas1983[i][5]));
     }
-    // boolean matches("");
 }
 
 
 void draw(){
+  if (currentseconde != second()){
+      currentseconde = second();
+      timer++;
+  }
+  if (l1){
+    layer1();
+  }
+  if (l2){
+    layer2();
+  }
+  if (l3){
+    layer3();
+  }
+  
+}
+
+
+/* -----------------------------
+
+    Layers de l'application
+
+------------------------------- */
+
+void layer1(){
     background(23, 33, 48);
-    lineartiste();
+    textFont(font2);
+    textAlign(RIGHT);
+    fill(224, 83, 72);
+    text("make the frac", width/2+60, height/3 + 40);
+    textSize(100);
+    textAlign(CENTER);
+    fill(255);
+    text("- 1983 -", width/2, height/2 + 40);
+    // if (timer>=10){
+    //   l2 = true;
+    //   l1 = false;
+    // }
+}
+
+void layer2(){
+    background(23, 33, 48);
+    textFont(font1);
+    textAlign(CENTER); // A enlever quand on active le layer1
+    // fill(value1, value2, value3, alpha);
+    rect(30, height-60, width - 60, 20);
+    textSize(60);
+    fill(255,90);
+    text("Reconstitue la collection du frac".toUpperCase(), width/2, 60);
+}
+
+void layer3(){
+    background(23, 33, 48);
     for (Visudom visueldomaine : visusdom){
       visueldomaine.dessin();
     }
     for (Visuelhexa monvisuel : visuels){
       monvisuel.dessin();
     }
-
 }
+
+/* -----------------------------
+
+    Permet de recentrer les visuels des domaines lorsque le drag n drop est bon
+
+------------------------------- */
+
 
 void fabricdomaine(){
    
@@ -70,6 +131,12 @@ void fabricdomaine(){
 
 }
 
+
+/* -----------------------------
+
+    Fonction qui créée une ligne en pointillé entre les oeuvres du même artiste
+
+------------------------------- */
 
 void lineartiste(){
     saveindex = 0;
@@ -116,8 +183,7 @@ void mousePressed(){
         }
           
     }
-    
-    /* ------------ DETECTION DU CLIC POUR LA NOTIFICATION ----------- */
+
 }
 
 void mouseReleased(){
@@ -135,7 +201,7 @@ void mouseReleased(){
         // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
       }
       if (visuels.get(j).bing && visusdom[i].bing && visuels.get(j).domaine.equals(visusdom[i].labeldom)){ // && datas1983[j][3] == visusdom[i].labeldom
-        println(datas1983[j][3] + " " + visusdom[i].labeldom);
+        println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
         visuels.remove(j);
         break;
       }

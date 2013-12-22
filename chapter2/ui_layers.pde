@@ -18,6 +18,8 @@ void layer1(){
     if (timer>=5){
       l2 = true;
       l1 = false;
+      l3 = false;
+      l4= false;
     }
 }
 
@@ -68,6 +70,9 @@ void layer2(){
       l1 = false;
       l2 = false;
       l3 = true;
+      l4 = false;
+      loading = 0;
+      do1each = true;
     }
     textSize(60);
     textAlign(CENTER);
@@ -83,4 +88,49 @@ void layer3(){
     for (Visuelhexa monvisuel : visuels){
       monvisuel.dessin();
     }
+    if (visuels.size() == 0) {
+        l1 = false;
+        l2 = false;
+        l3 = false;
+        l4 = true;
+    }
+    //lineartiste();
+    
+    /* ----------------- BARRE DE CHARGEMENT -------------------
+    noStroke();
+    fill(255);
+    rect(30, 30, width/2, 20);
+    fill(255,83,66);
+    rect(30, 30, loading, 20);
+    loading = loading + 0.05;
+    loading = constrain(loading,0,width/2);
+    ------------------------------------------------------------*/
+
+}
+
+void layer4(){
+    background(23, 33, 48);
+    textFont(font2);
+    textSize(60);
+    textAlign(CORNER);
+    text("- 1983 -", width/2-40, 80);
+    for (Visudom visueldomaine : visusdom){
+      visueldomaine.dessin();
+    }
+    for (int i = 0; i < nbdomaine.length; i++) {
+        // if (do1each)
+       //     xellipsevisu1[i] = random(160, 160+nbdomaine[i]);
+
+        stroke(255);
+        positionvisu1 = positionvisu1 + posyvisu1;
+        textSize(12);
+        text(labeldomaine[i],10,positionvisu1);
+        line(160, positionvisu1, 160 + nbdomaine[i], positionvisu1);
+        //ellipse(xellipsevisu1[i], positionvisu1, 2, 2);
+        //xellipsevisu1[i] += sensxvisu1;
+        //if (xellipsevisu1[i]>=160 + nbdomaine[i] || xellipsevisu1[i]<=160)
+        //    sensxvisu1 =  sensxvisu1 *-1;
+    }
+        positionvisu1 = 0;
+        //do1each = false;
 }

@@ -14,47 +14,60 @@ import java.io.IOException;
 
 public class chapter2 extends PApplet {
 
-//import java.awt.Polygon;
-// import java.awt.*;
-
-int rows = 7, cols = 4788;
-float taillevisuels;
-
 PFont font1, font2;
 
+/* ---------------------- DATAS ------------------------- */
+int rows = 7, cols = 4788;
 String[] liste;
 String[][] valeur = new String[cols][rows];
 String[][] datas1983 = new String[144][rows];
+int linesdatas = 0;
 
-float[] distdashs = {5, 8, 5, 8};
+/*--------------------------------------------------------*/
+
+/* ---------------------- HEXAGONES LAYER 3 ------------------------- */
 
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
+float hexalayer2cx, hexalayer2cy;
+float taillevisuels;
+float randx, randy;
 
-int linesdatas = 0, saveindex = 0, saveindex2 = 0, count = 0;
+/*------------------------------------------------------------------*/
+
+
+float saveindex = 0; // float saveindex2 = 0, count = 0; float[] distdashs = {5, 8, 5, 8}; ------ POUR LES DASHLINES
 
 boolean pressedbing = false;
-boolean l1 = true, l2 = false, l3 = false;
+boolean l1 = false, l2 = false, l3 = true, l4 = false;
 boolean do1each = true;
 boolean gotoend = false;
 // Visuelhexa visuelpressed, visueldragged;
-Visudom[] visusdom = new Visudom[8];
+
 Visudom[] visuslayer2 = new Visudom[3];
-int indexdrag;
+int indexdrag, indexdrag2;
 float distance;
+
+
+/* ---------------------- DOMAINES LAYER 3 ------------------------- */
 
 int[] nbdomaine = new int[8];
 String[] labeldomaine = new String[8];
+Visudom[] visusdom = new Visudom[8];
+float cx, cy, distridomaine, angledom, rayondom = 260, calcrayon;
+float posyvisu1, positionvisu1;
+float[] xellipsevisu1 = new float[8];
+float sensxvisu1 = 1;
 
-float cx, cy, angledom = 45;
-float hexalayer2cx, hexalayer2cy;
+/*------------------------------------------------------------------*/
 
 int currentseconde, timer;
 
-int loading;
+float loading;
 
 
 public void setup(){
     size(1024, 768);
+    posyvisu1 = height/9;
     currentseconde = second();
     background(23, 33, 48);
     font1 = loadFont("latolight.vlw");
@@ -63,18 +76,30 @@ public void setup(){
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois expos\u00e9s
         taillevisuels = map(PApplet.parseFloat(datas1983[i][2]), 0, 43, 4, 43);
+        randx = random(0+43,width-43);
+        randy = random(0+43, height-43);
+        if (randx>width-400 && randy<200) {
+          randx = random(0+43,width-400);
+          randy = random(200, height-43);
+        }
+
         visuels.add(new Visuelhexa (
-            random(0+43,width-43), 
-            random(0+43, height-43), 
+            randx, 
+            randy, 
             taillevisuels, 
             datas1983[i][3], 
             datas1983[i][4], 
-            datas1983[i][5]
+            datas1983[i][5],
+            datas1983[i][6]
         ));
+        //println(datas1983[i][6]);
     }
-    visuslayer2[0] = new Visudom(40,"test1");
-    visuslayer2[1] = new Visudom(100,"test2");
-    visuslayer2[2] = new Visudom(80,"test3");
+
+    calcrayon = rayondom / visuels.size();
+
+    visuslayer2[0] = new Visudom(40,"test1",30,30);
+    visuslayer2[1] = new Visudom(100,"test2",30,30);
+    visuslayer2[2] = new Visudom(80,"test3",30,30);
 }
 
 
@@ -93,7 +118,28 @@ public void draw(){
   if (l3){
     layer3();
   }
+  if (l4){
+    layer4();
+  }
   
+}
+
+
+public void keyPressed() {
+  if (key == 'b' || key == 'B') {
+    for (int i = 0; i < visuels.size(); ++i) {
+      visuels.remove(i);
+      rayondom =  rayondom >= 60 ? rayondom - calcrayon : random(50, 60);
+      println(rayondom);
+        for (int k = 0; k<visusdom.length; k++){
+           visusdom[k].centre.x = width/2 + cos(angledom)*rayondom;
+           visusdom[k].centre.y = height/2 + sin(angledom)*rayondom;
+           angledom += distridomaine;
+         } // on recentre la position des domaines 
+         angledom = 0;
+    }
+    //println(visuels.size());
+  }
 }
 
 
@@ -105,18 +151,17 @@ public void draw(){
 
 
 public void fabricdomaine(){
-   
-   cx = width/2;
-   cy = height/2;
+
+   distridomaine = TWO_PI/8;
    for (int i = 0; i<nbdomaine.length; i++){
+     cx = width/2 + cos(angledom)*rayondom;
+     cy = height/2 + sin(angledom)*rayondom;
+     angledom += distridomaine;
      nbdomaine[i] = PApplet.parseInt(map(nbdomaine[i], 1, 44, 40, 120));
-     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);
-     if (angledom<=360){
-       angledom += angledom;
-     }else{
-       angledom = 0;
-     }
+     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i],cx,cy);
    }
+   angledom = 0;
+    //println("cx : " +visusdom[7].centre.x+ " cy : "+visusdom[7].centre.y);
 }
 
 
@@ -128,24 +173,21 @@ public void fabricdomaine(){
 
 public void lineartiste(){
     saveindex = 0;
-        // for (int i = 0; i<visuels.size(); i++){
-        //   if (datas1983[i][6].equals("Henri YVERGNIAUX")){
-        //       strokeWeight(1);
-        //       dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
-        //       saveindex = i;
-        //   }
-        //   if (datas1983[i][6].equals("Michel DIEUZAIDE")){
-        //       strokeWeight(1);
-        //       dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
-        //       saveindex2 = i;
-        //   }
-          // for (int j = visuels.size()-1; j>=0; j--){
-          //   if (datas1983[i][6].equals(datas1983[j][6])){
-          //     strokeWeight(1);
-          //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
-          //   }
-          // }
-        //}
+
+    /*
+        for (int i = 0; i<visuels.size(); i++){
+          for (int j = visuels.size()-1; j>=0; j--){
+            //println(visuels.get(i).artiste+ "  = ?  " + visuels.get(j).artiste);
+            if (visuels.get(i).artiste.equals(visuels.get(j).artiste) && !visuels.get(i).visudashline && !visuels.get(j).visudashline){
+              strokeWeight(1);
+              println("YES");
+              dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
+              visuels.get(i).visudashline = true;
+              visuels.get(j).visudashline = true;
+            }
+          }
+        }
+    */
 }
 
 
@@ -161,12 +203,24 @@ public void mousePressed(){
     /* ------------ DETECTION DU CLIC POUR LE DRAG N DROP ----------- */
 
     for (int i = 0; i<visuels.size(); i++){
-        visuels.get(i).detection();
-        if (visuels.get(i).bing){
+        //visuels.get(i).detection();
+        if (visuels.get(i).detection()){
             visuels.get(i).savex = mouseX;
             visuels.get(i).savey = mouseY;
             indexdrag = i;
             pressedbing = true;
+            break;
+        }
+          
+    }
+
+    /* ------------ DETECTION DU CLIC POUR LES DOMAINES ----------- */
+
+    for (int i = 0; i<visusdom.length; i++){
+        //visuels.get(i).detection();
+        if (visusdom[i].detection()){
+            visusdom[i].savex = mouseX;
+            visusdom[i].savey = mouseY;
             break;
         }
           
@@ -180,29 +234,33 @@ public void mouseReleased(){
   /* ------------ DETECTION DU DOMAINE LORS D'UN DROP D'UNE OEUVRE ----------- */
 
   for (int i = 0; i<visusdom.length; i++){
+
+    if (visusdom[i].savex == mouseX && visusdom[i].savey == mouseY && l4) {
+      visusdom[i].details = visusdom[i].details == true ? false : true;
+    }
+
     for (int j = 0; j<visuels.size(); j++){
-      visusdom[i].detection();
-      visuels.get(j).detection();
+      //visusdom[i].detection();
       
       if (PApplet.parseInt(visuels.get(j).savex) == mouseX && PApplet.parseInt(visuels.get(j).savey) == mouseY){
-       // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
-        // image(visuels.get(j).imageoeuvre, visuels.get(j).px, visuels.get(j).py);
-        // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
-        // if (visuels.get(j).details){
-        //   visuels.get(j).details = false;
-        // }else {
-        //   visuels.get(j).details = true;
-        // }
+        // AFFICHAGE IMAGE SI POSSIBLE
         visuels.get(j).details = visuels.get(j).details == true ? false : true;
-
-        println(visuels.get(j) + " " + visuels.get(j).details);
+        //println(visuels.get(j) + " " + visuels.get(j).details);
         gotoend = true;
         break;
       }
 
-      if (visuels.get(j).bing && visusdom[i].bing && visuels.get(j).domaine.equals(visusdom[i].labeldom)){ // && datas1983[j][3] == visusdom[i].labeldom
-        println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
+      if (visuels.get(j).detection() && visusdom[i].detection() && visuels.get(j).domaine.equals(visusdom[i].labeldom)){
+        //println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
         visuels.remove(j);
+        rayondom =  rayondom >= 50 ? rayondom - calcrayon : random(46, 50);
+        //rayondom = rayondom - calcrayon;
+        for (int k = 0; k<visusdom.length; k++){
+           visusdom[k].centre.x = width/2 + cos(angledom)*rayondom;
+           visusdom[k].centre.y = height/2 + sin(angledom)*rayondom;
+           angledom += distridomaine;
+         } // on recentre la position des domaines 
+         angledom = 0;
         break;
       }
     }
@@ -281,7 +339,6 @@ public void parseDatas(){
      labeldomaine[5] = "Dessin";
      labeldomaine[6] = "Oeuvre en 3 dimensions";
      labeldomaine[7] = "Objet/Design";
-
      fabricdomaine();
 
 }
@@ -345,6 +402,8 @@ public void layer1(){
     if (timer>=5){
       l2 = true;
       l1 = false;
+      l3 = false;
+      l4= false;
     }
 }
 
@@ -395,6 +454,9 @@ public void layer2(){
       l1 = false;
       l2 = false;
       l3 = true;
+      l4 = false;
+      loading = 0;
+      do1each = true;
     }
     textSize(60);
     textAlign(CENTER);
@@ -410,6 +472,51 @@ public void layer3(){
     for (Visuelhexa monvisuel : visuels){
       monvisuel.dessin();
     }
+    if (visuels.size() == 0) {
+        l1 = false;
+        l2 = false;
+        l3 = false;
+        l4 = true;
+    }
+    //lineartiste();
+    
+    /* ----------------- BARRE DE CHARGEMENT -------------------
+    noStroke();
+    fill(255);
+    rect(30, 30, width/2, 20);
+    fill(255,83,66);
+    rect(30, 30, loading, 20);
+    loading = loading + 0.05;
+    loading = constrain(loading,0,width/2);
+    ------------------------------------------------------------*/
+
+}
+
+public void layer4(){
+    background(23, 33, 48);
+    textFont(font2);
+    textSize(60);
+    textAlign(CORNER);
+    text("- 1983 -", width/2-40, 80);
+    for (Visudom visueldomaine : visusdom){
+      visueldomaine.dessin();
+    }
+    for (int i = 0; i < nbdomaine.length; i++) {
+        // if (do1each)
+       //     xellipsevisu1[i] = random(160, 160+nbdomaine[i]);
+
+        stroke(255);
+        positionvisu1 = positionvisu1 + posyvisu1;
+        textSize(12);
+        text(labeldomaine[i],10,positionvisu1);
+        line(160, positionvisu1, 160 + nbdomaine[i], positionvisu1);
+        //ellipse(xellipsevisu1[i], positionvisu1, 2, 2);
+        //xellipsevisu1[i] += sensxvisu1;
+        //if (xellipsevisu1[i]>=160 + nbdomaine[i] || xellipsevisu1[i]<=160)
+        //    sensxvisu1 =  sensxvisu1 *-1;
+    }
+        positionvisu1 = 0;
+        //do1each = false;
 }
 class Visudom {
 	
@@ -421,54 +528,51 @@ class Visudom {
 	float [] rayons;
 	String labeldom;
 	float distance;
-	boolean init, bing;
+	float savex, savey;
+	boolean init, bing, details;
 
-	Visudom (float rayon, String labeldom) {
+	Visudom (float rayon, String labeldom, float centx, float centy) {
 		this.labeldom = labeldom;
 		n = 4;
 		this.rayon = rayon;
-
+		centre = new PVector(centx,centy);
 		rayons = new float [n];
-
-		rayons[0] = random(rayon*0.5f, rayon);
+		rayons[0] = random(rayon*0.5f, rayon*0.8f);
 		rayons[1] = rayons[0] - rayon;
-		rayons[2] = random(rayon*0.5f, rayon);
+		rayons[2] = random(rayon*0.5f, rayon*0.8f);
 		rayons[3] = rayons[2] - rayon;
 
  		distribution = TWO_PI/n;
-		centre = new PVector (random(100, width-100),random(100, height-100));
+		//centre = new PVector (random(100, width-100),random(100, height-100));
 		init = true;
 	}
 
-	public void initialisation(){
-		if (init){
-			init = false;
-		}
-	}
-
 	public void dessin(){
-		//initialisation();
 		angle = 0;
-		noStroke();
-		fill(255,83,66);
-		beginShape();
-			for(int i =0; i<n; i++){
-			  vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
-			  angle+=distribution;
+			noStroke();
+			fill(255,83,66);
+			beginShape();
+				for(int i =0; i<n; i++){
+				  vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
+				  angle+=distribution;
+				}
+			endShape(CLOSE);
+			fill(255);
+			textFont(font1);
+			textSize(13);
+			text(labeldom, centre.x, centre.y);
+			if (details) {
+				angle = 0;
+				noFill();
+				stroke(255);
+				ellipse(centre.x, centre.y, rayon + 40, rayon + 40);
 			}
-		endShape(CLOSE);
-		fill(255);
-		text(labeldom, centre.x, centre.y);
 	}
 
-	public void detection(){
+	public boolean detection(){
         distance = dist(mouseX, mouseY, centre.x, centre.y);
-        if (distance <= 30){
-            // print( " BING domaine ");
-            bing = true;
-        }else {
-            bing = false;
-        }
+        bing = distance <= 30 ? true : false;
+        return bing;
     }
 
     public void dessinlayer2(float cx, float cy){
@@ -492,27 +596,27 @@ class Visuelhexa {
     float ray;
     int indexvisuelbing;
     float distance;
-    boolean bing, details;
-    String domaine;
-    String photoeuvre;
-    String nomoeuvre;
+    boolean bing, details, visudashline, oneach;
+    String domaine, photoeuvre, nomoeuvre, artiste;
     float savex, savey;
     PImage imageoeuvre;
     float widthtext;
 
-	Visuelhexa (float posx, float posy, float rayon, String domaine, String photoeuvre, String nomoeuvre) {
+	Visuelhexa (float posx, float posy, float rayon, String domaine, String photoeuvre, String nomoeuvre, String artiste) {
         n = 6;
         angle = 0;
+        this.artiste = artiste;
         this.domaine = domaine;
         this.photoeuvre = photoeuvre;
         this.nomoeuvre = nomoeuvre;
         distribution = TWO_PI/n;
         bing = false;
         details = false;
+        visudashline = false;
+        oneach = true;
 		px = posx;
 		py = posy;
 		ray = rayon;
-        // imageoeuvre = loadImage(photoeuvre);
 	}
 
 	public void dessin(){
@@ -522,35 +626,63 @@ class Visuelhexa {
         fill(255);
         stroke(255,80);
         strokeWeight((ray*0.7f));
-        beginShape();
-        for(int i =0; i<n; i++){ 
-          vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
-          angle+=distribution;
-        }
-        endShape(CLOSE);
-        // thread("lineartiste()");
+        textAlign(CENTER);
         if (details){
+            fill(32, 44, 61);
+            noStroke();
+            rect(4*width/6 - 100, 30, 400, 200);
+            stroke(89,239,167,80);
+            textAlign(CENTER);
             beginShape();
                 for(int i =0; i<n; i++){ 
-                  vertex(px + cos(angle)*ray*3, py+ sin(angle)*ray*3);
+                  vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
                   angle+=distribution;
                 }
             endShape(CLOSE);
-            fill(23, 33, 48);
-            textAlign(CENTER);
-            widthtext = textWidth(nomoeuvre);
-            text(nomoeuvre, px, py);
+            dessinimg();
+            fill(255);
+            textAlign(CORNER);
+            textFont(font1);
+            textSize(12);
+            widthtext = nomoeuvre.length();
+            text(nomoeuvre, 5*width/6-55, 50);
+            text("nb expos\u00e9 : "+PApplet.parseInt(ray), 5*width/6-55, 80);
+        }else {
+            beginShape();
+                for(int i =0; i<n; i++){ 
+                  vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
+                  angle+=distribution;
+                }
+            endShape(CLOSE);
         }
-	}
 
-    public void detection(){
+    }
+
+    public boolean detection(){
         distance = dist(mouseX, mouseY, px, py);
         if (distance <= ray){
-            // println( " BING hexa ");
             bing = true;
         }else {
             bing = false;
         }
+        return bing;
+    }
+
+    public void dessinimg(){
+        if (oneach){
+            try {
+                imageoeuvre = loadImage(photoeuvre);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        oneach = false;
+        if (imageoeuvre != null){
+            image(imageoeuvre, 4*width/6 - 100, 30,200,200);
+        }else{
+            println("IMAGE NON DISPONIBLE");
+        }
+        
     }
 
 }

@@ -26,14 +26,14 @@ void setup() {
     }
   });
   
-  // parseLocations("coordonnees.csv");
+  //parseLocations("coordonnees.csv");
   // img = loadImage("mapvector.png");
   // imageMode(CENTER);
 }
 
 void draw() {
   // background(0);
-  // map.draw();
+  map.draw();
   // if (g){
   //   image(img, width/2, height/2);
   // }
@@ -59,7 +59,7 @@ void Motif(float px, float py, float ray){
     float distribution = TWO_PI/n;
     smooth(); 
     shapeMode(CENTER);
-    fill(23, 33, 48);
+    fill(255,83,66,90);
     noStroke();
     beginShape();
     for(int i =0; i<8; i++){ 
@@ -67,6 +67,9 @@ void Motif(float px, float py, float ray){
       angle+=distribution;
     }
     endShape(CLOSE);
+    noFill();
+    stroke(255);
+    ellipse(px, py, second()/2, second()/2);
 }
 
 

@@ -135,7 +135,7 @@ namespace {
         if (markerFound == 0) {
             NSLog(@"No marker found.");
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                //[appDelegate hidePJS];
+                [appDelegate hidePJS];
             }];
         }
         

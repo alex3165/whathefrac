@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B5A597A1-6BAE-4A50-8090-3001A680EA35</string>
+	<string>54894EAB-6743-4482-8817-18A9E80D2BE4</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Whathefrac</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E1F10E73-B000-43A0-AF17-0DEE5F5C5A20</key>
+		<key>CB2DA7CC-A3DC-4248-8F07-F7DA4AD43CE3</key>
 		<string>https://github.com/alex3165/whathefrac.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>pjs_ios/Whathefrac/Whathefrac.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E1F10E73-B000-43A0-AF17-0DEE5F5C5A20</key>
+		<key>CB2DA7CC-A3DC-4248-8F07-F7DA4AD43CE3</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E1F10E73-B000-43A0-AF17-0DEE5F5C5A20</string>
+	<string>CB2DA7CC-A3DC-4248-8F07-F7DA4AD43CE3</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E1F10E73-B000-43A0-AF17-0DEE5F5C5A20</string>
+			<string>CB2DA7CC-A3DC-4248-8F07-F7DA4AD43CE3</string>
 			<key>IDESourceControlWCCName</key>
 			<string>whatthefrac</string>
 		</dict>

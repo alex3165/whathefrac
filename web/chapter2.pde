@@ -23,7 +23,7 @@ float randx, randy;
 int saveindex = 0;
 
 boolean pressedbing = false;
-boolean l1 = true, l2 = false, l3 = false, l4 = false;
+boolean /*l1 = true,*/ l2 = false, l3 = false, l4 = false;
 boolean do1each = true;
 boolean gotoend = false;
 boolean do1eachtimer = true;
@@ -60,8 +60,8 @@ void setup(){
     background(23, 33, 48);
     //font1 = loadFont("latolight.vlw");
     //font2 = loadFont("canterlight.vlw");
-    font1 = createFont("canterlight",24);
-    font2 = createFont("latolight",24);
+    font2 = createFont("canterlight",20);
+    font1 = createFont("latolight",46);
     
     parseDatas();
 
@@ -74,7 +74,8 @@ void setup(){
           randx = random(0+43,width-400);
           randy = random(200, height-43);
         }
-
+    
+        
         visuels.add(new Visuelhexa (
             randx, 
             randy, 
@@ -100,10 +101,10 @@ void setup(){
 
 void draw(){
 
-  if (l1){
-    timing();
-    layer1();
-  }
+  // if (l1){
+  //   timing();
+  //   layer1();
+  // }
   if (l2){
     timing();
     layer2();
@@ -386,7 +387,8 @@ void parseDatas(){
      labeldomaine[6] = "Oeuvre en 3 dimensions";
      labeldomaine[7] = "Objet/Design";
 
-    // fabricdomaine();
+     fabricdomaine();
+
 }
 
 /* ------------------------------------------------------
@@ -428,3 +430,186 @@ void dashline(float x0, float y0, float x1, float y1, float[] spacing){
     }
   }
 }
+
+/* ------------------------------------------------------
+
+    Classe de domaines
+
+------------------------------------------------------ */
+
+// class Visudom {
+  
+//   int n; // nombre de segments
+//   float rayon;
+//   float angle = 0;
+//   float distribution;
+//   PVector centre;
+//   float [] rayons;
+//   String labeldom;
+//   float distance;
+//   float savex, savey;
+//   boolean init, bing, details;
+
+//   Visudom (float rayon, String labeldom, float centx, float centy) {
+//     this.labeldom = labeldom;
+//     n = 4;
+//     this.rayon = rayon;
+//     centre = new PVector(centx,centy);
+//     rayons = new float [n];
+//     rayons[0] = random(rayon*0.5, rayon*0.8);
+//     rayons[1] = rayons[0] - rayon;
+//     rayons[2] = random(rayon*0.5, rayon*0.8);
+//     rayons[3] = rayons[2] - rayon;
+
+//     distribution = TWO_PI/n;
+//     //centre = new PVector (random(100, width-100),random(100, height-100));
+//     init = true;
+//   }
+
+//   void dessin(){
+//     angle = 0;
+//       noStroke();
+//       fill(255,83,66);
+//       beginShape();
+//         for(int i =0; i<n; i++){
+//           vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
+//           angle+=distribution;
+//         }
+//       endShape(CLOSE);
+//       fill(255);
+//       textFont(font1);
+//       textSize(13);
+//       text(labeldom, centre.x, centre.y);
+//       if (details) {
+//         angle = 0;
+//         noFill();
+//         stroke(255);
+//         ellipse(centre.x, centre.y, rayon + 40, rayon + 40);
+//         // for (Visuelhexa visuafter : visuelsafter) {
+//         //  println(visuafter.domaine+" "+labeldom);
+//     //          if (visuafter.domaine.equals(labeldom)) {
+//     //            visuafter.dessin();
+//     //          }
+//     //      }
+//       }
+//   }
+
+//   boolean detection(){
+//         distance = dist(mouseX, mouseY, centre.x, centre.y);
+//         bing = distance <= 30 ? true : false;
+//         return bing;
+//     }
+
+//     void dessinlayer2(float cx, float cy){
+//       angle = 0;
+//     noStroke();
+//     fill(255,83,66);
+//     beginShape();
+//       for(int i =0; i<n; i++){
+//         vertex(cx + cos(angle)*rayons[i], cy+ sin(angle)*rayons[i]);
+//         angle+=distribution;
+//       }
+//     endShape(CLOSE);
+//     }
+// }
+
+// /* ------------------------------------------------------
+
+//     Classe de visuels hexa
+
+// ------------------------------------------------------ */
+
+// class Visuelhexa {
+  
+//   float n;
+//     float angle;
+//     float distribution;
+//   float px, py;
+//     float ray;
+//     int indexvisuelbing;
+//     float distance;
+//     boolean bing, details, visudashline, oneach;
+//     String domaine, photoeuvre, nomoeuvre, artiste;
+//     float savex, savey;
+//     PImage imageoeuvre;
+//     float widthtext;
+
+//   Visuelhexa (float posx, float posy, float rayon, String domaine, String photoeuvre, String nomoeuvre, String artiste) {
+//         n = 6;
+//         angle = 0;
+//         this.artiste = artiste;
+//         this.domaine = domaine;
+//         this.photoeuvre = photoeuvre;
+//         this.nomoeuvre = nomoeuvre;
+//         distribution = TWO_PI/n;
+//         bing = false;
+//         details = false;
+//         visudashline = false;
+//         oneach = true;
+//     px = posx;
+//     py = posy;
+//     ray = rayon;
+//   }
+
+//   void dessin(){
+//         angle = 0;
+//         smooth(); 
+//         shapeMode(CENTER);
+//         fill(255);
+//         stroke(255,80);
+//         strokeWeight((ray*0.7));
+//         textAlign(CENTER);
+//         if (details){
+//             fill(32, 44, 61);
+//             noStroke();
+//             rect(4*width/6 - 100, 30, 400, 200);
+//             stroke(89,239,167,80);
+//             textAlign(CENTER);
+//             beginShape();
+//                 for(int i =0; i<n; i++){ 
+//                   vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
+//                   angle+=distribution;
+//                 }
+//             endShape(CLOSE);
+//             dessinimg();
+//             fill(255);
+//             textAlign(CORNER);
+//             textFont(font1);
+//             textSize(12);
+//             widthtext = nomoeuvre.length();
+//             text(nomoeuvre, 5*width/6-55, 50);
+//             text("nb exposé : "+int(ray), 5*width/6-55, 80);
+//             text("Artiste : "+artiste, 5*width/6-55, 110);
+//         }else {
+//             beginShape();
+//                 for(int i =0; i<n; i++){ 
+//                   vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
+//                   angle+=distribution;
+//                 }
+//             endShape(CLOSE);
+//         }
+
+//     }
+
+//     boolean detection(){
+//         return bing = dist(mouseX, mouseY, px, py) <= ray ? true : false;
+//     }
+
+//     void dessinimg(){
+//         if (oneach){
+//             try {
+//                 imageoeuvre = loadImage(photoeuvre);
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
+//         }
+//         oneach = false;
+//         if (imageoeuvre != null){
+//             image(imageoeuvre, 4*width/6 - 100, 30,200,200);
+//         }else{
+//             println("IMAGE NON DISPONIBLE");
+//         }
+        
+//     }
+
+// }

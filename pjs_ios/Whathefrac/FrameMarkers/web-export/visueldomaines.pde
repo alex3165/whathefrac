@@ -8,54 +8,57 @@ class Visudom {
 	float [] rayons;
 	String labeldom;
 	float distance;
-	boolean init, bing;
+	float savex, savey;
+	boolean init, bing, details;
 
-	Visudom (float rayon, String labeldom) {
+	Visudom (float rayon, String labeldom, float centx, float centy) {
 		this.labeldom = labeldom;
 		n = 4;
 		this.rayon = rayon;
-
+		centre = new PVector(centx,centy);
 		rayons = new float [n];
-
-		rayons[0] = random(rayon*0.5, rayon);
+		rayons[0] = random(rayon*0.5, rayon*0.8);
 		rayons[1] = rayons[0] - rayon;
-		rayons[2] = random(rayon*0.5, rayon);
+		rayons[2] = random(rayon*0.5, rayon*0.8);
 		rayons[3] = rayons[2] - rayon;
 
  		distribution = TWO_PI/n;
-		centre = new PVector (random(100, width-100),random(100, height-100));
+		//centre = new PVector (random(100, width-100),random(100, height-100));
 		init = true;
 	}
 
-	void initialisation(){
-		if (init){
-			init = false;
-		}
-	}
-
 	void dessin(){
-		//initialisation();
 		angle = 0;
-		noStroke();
-		fill(255,83,66);
-		beginShape();
-			for(int i =0; i<n; i++){
-			  vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
-			  angle+=distribution;
+			noStroke();
+			fill(255,83,66);
+			beginShape();
+				for(int i =0; i<n; i++){
+				  vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
+				  angle+=distribution;
+				}
+			endShape(CLOSE);
+			fill(255);
+			textFont(font1);
+			textSize(13);
+			text(labeldom, centre.x, centre.y);
+			if (details) {
+				angle = 0;
+				noFill();
+				stroke(255);
+				ellipse(centre.x, centre.y, rayon + 40, rayon + 40);
+				// for (Visuelhexa visuafter : visuelsafter) {
+				// 	println(visuafter.domaine+" "+labeldom);
+    //     			if (visuafter.domaine.equals(labeldom)) {
+    //     				visuafter.dessin();
+    //     			}
+    // 			}
 			}
-		endShape(CLOSE);
-		fill(255);
-		text(labeldom, centre.x, centre.y);
 	}
 
-	void detection(){
+	boolean detection(){
         distance = dist(mouseX, mouseY, centre.x, centre.y);
-        if (distance <= 30){
-            // print( " BING domaine ");
-            bing = true;
-        }else {
-            bing = false;
-        }
+        bing = distance <= 30 ? true : false;
+        return bing;
     }
 
     void dessinlayer2(float cx, float cy){

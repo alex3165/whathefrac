@@ -1,80 +1,155 @@
-int rows = 7, cols = 4788;
-float taillevisuels;
-
 PFont font1, font2;
 
+/* ---------------------- DATAS ------------------------- */
+int rows = 7, cols = 4788;
 String[] liste;
 String[][] valeur = new String[cols][rows];
 String[][] datas1983 = new String[144][rows];
+int linesdatas = 0;
 
-float[] distdashs = {5, 8, 5, 8};
+/*--------------------------------------------------------*/
+
+/* ---------------------- HEXAGONES LAYER 3 ------------------------- */
 
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
+ArrayList<Visuelhexa> visuelsafter = new ArrayList<Visuelhexa>();
+float hexalayer2cx, hexalayer2cy;
+float taillevisuels;
+float randx, randy;
 
-int linesdatas = 0, saveindex = 0, saveindex2 = 0, count = 0;
+/*------------------------------------------------------------------*/
+
+
+int saveindex = 0;
 
 boolean pressedbing = false;
-boolean l1 = true, l2 = false, l3 = false;
+boolean /*l1 = true,*/ l2 = true, l3 = false, l4 = false;
 boolean do1each = true;
 boolean gotoend = false;
+boolean do1eachtimer = true;
+boolean verif = true, verification = true;
 // Visuelhexa visuelpressed, visueldragged;
-Visudom[] visusdom = new Visudom[8];
+
 Visudom[] visuslayer2 = new Visudom[3];
-int indexdrag;
+int indexdrag, indexdrag2;
 float distance;
+
+
+/* ---------------------- DOMAINES LAYER 3 ------------------------- */
 
 int[] nbdomaine = new int[8];
 String[] labeldomaine = new String[8];
+Visudom[] visusdom = new Visudom[8];
+float cx, cy, distridomaine, angledom, rayondom = 260, calcrayon;
+float posyvisu1, positionvisu1;
+float[] xellipsevisu1 = new float[8];
+float sensxvisu1 = 1;
 
-float cx, cy, angledom = 45;
-float hexalayer2cx, hexalayer2cy;
+/*------------------------------------------------------------------*/
 
 int currentseconde, timer;
 
-int loading;
+float loading;
 
+int points, totalmax, scorefinal;
 
 void setup(){
     size(1024, 768);
+    posyvisu1 = height/9;
     currentseconde = second();
     background(23, 33, 48);
-    font1 = loadFont("latolight.vlw");
-    font2 = loadFont("canterlight.vlw");
+    //font1 = loadFont("latolight.vlw");
+    //font2 = loadFont("canterlight.vlw");
+    font2 = createFont("canterlight",20);
+    font1 = createFont("latolight",46);
+    
     parseDatas();
+
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
         taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
+        randx = random(0+43,width-43);
+        randy = random(0+43, height-43);
+        if (randx>width-400 && randy<200) {
+          randx = random(0+43,width-400);
+          randy = random(200, height-43);
+        }
+    
+        
         visuels.add(new Visuelhexa (
-            random(0+43,width-43), 
-            random(0+43, height-43), 
+            randx, 
+            randy, 
             taillevisuels, 
             datas1983[i][3], 
             datas1983[i][4], 
-            datas1983[i][5]
+            datas1983[i][5],
+            datas1983[i][6]
         ));
+        //println(datas1983[i][6]);
     }
-    visuslayer2[0] = new Visudom(40,"test1");
-    visuslayer2[1] = new Visudom(100,"test2");
-    visuslayer2[2] = new Visudom(80,"test3");
+
+
+    calcrayon = rayondom / visuels.size();
+
+    visuslayer2[0] = new Visudom(40,"test1",30,30);
+    visuslayer2[1] = new Visudom(100,"test2",30,30);
+    visuslayer2[2] = new Visudom(80,"test3",30,30);
+
+
 }
 
 
 void draw(){
-  // On fait le timer de secondes.
-  if (currentseconde != second()){
-      currentseconde = second();
-      timer++;
-  }
-  if (l1){
-    layer1();
-  }
+
+  // if (l1){
+  //   timing();
+  //   layer1();
+  // }
   if (l2){
+    timing();
     layer2();
   }
   if (l3){
+    if (do1eachtimer) {
+      timer = 0;
+      do1eachtimer = false;
+    }
+    timing();
     layer3();
   }
-  
+  if (l4){
+    layer4();
+    datavizlayer4();
+  }
+}
+
+
+void timing(){
+  if (currentseconde != second()){
+      currentseconde = second();
+      timer++;
+      loading++;
+  }
+}
+
+void keyPressed() {
+  if (key == 'b' || key == 'B') {
+    for (int i = 0; i < visuels.size(); ++i) {
+      points = points + int(visuels.get(i).ray);
+      visuels.remove(i);
+      rayondom =  rayondom >= 60 ? rayondom - calcrayon : random(50, 60);
+      println(rayondom);
+        for (int k = 0; k<visusdom.length; k++){
+           visusdom[k].centre.x = width/2 + cos(angledom)*rayondom;
+           visusdom[k].centre.y = height/2 + sin(angledom)*rayondom;
+           angledom += distridomaine;
+         } // on recentre la position des domaines 
+         angledom = 0;
+    }
+    //println(visuels.size());
+  }else if (key == 'd' || key == 'D') {
+    loading = loading + 10;
+  }
 }
 
 
@@ -86,18 +161,19 @@ void draw(){
 
 
 void fabricdomaine(){
-   
-   cx = width/2;
-   cy = height/2;
+
+   distridomaine = TWO_PI/8;
+
    for (int i = 0; i<nbdomaine.length; i++){
+     cx = width/2 + cos(angledom)*rayondom;
+     cy = height/2 + sin(angledom)*rayondom;
+     angledom += distridomaine;
      nbdomaine[i] = int(map(nbdomaine[i], 1, 44, 40, 120));
-     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i]);
-     if (angledom<=360){
-       angledom += angledom;
-     }else{
-       angledom = 0;
-     }
+     visusdom[i] = new Visudom(nbdomaine[i],labeldomaine[i],cx,cy);
    }
+
+   angledom = 0;
+    //println("cx : " +visusdom[7].centre.x+ " cy : "+visusdom[7].centre.y);
 }
 
 
@@ -108,25 +184,35 @@ void fabricdomaine(){
 ------------------------------- */
 
 void lineartiste(){
-    saveindex = 0;
-        // for (int i = 0; i<visuels.size(); i++){
-        //   if (datas1983[i][6].equals("Henri YVERGNIAUX")){
-        //       strokeWeight(1);
-        //       dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex).px, visuels.get(saveindex).py, distdashs);
-        //       saveindex = i;
-        //   }
-        //   if (datas1983[i][6].equals("Michel DIEUZAIDE")){
-        //       strokeWeight(1);
-        //       dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(saveindex2).px, visuels.get(saveindex2).py, distdashs);
-        //       saveindex2 = i;
-        //   }
-          // for (int j = visuels.size()-1; j>=0; j--){
-          //   if (datas1983[i][6].equals(datas1983[j][6])){
-          //     strokeWeight(1);
-          //     dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
-          //   }
-          // }
-        //}
+    //saveindex = 0;
+
+    /*
+        for (int i = 0; i<visuels.size(); i++){
+          for (int j = visuels.size()-1; j>=0; j--){
+            //println(visuels.get(i).artiste+ "  = ?  " + visuels.get(j).artiste);
+            if (visuels.get(i).artiste.equals(visuels.get(j).artiste) && !visuels.get(i).visudashline && !visuels.get(j).visudashline){
+              strokeWeight(1);
+              println("YES");
+              dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
+              visuels.get(i).visudashline = true;
+              visuels.get(j).visudashline = true;
+            }
+          }
+        }
+    */
+}
+
+
+void datavizlayer4(){
+  // for (int i = 0; i < visusdom.length; ++i) {
+  //   if (visusdom[i].details) {
+  //     for (int j = 0; j < visuels.size(); ++j) {
+  //       if (visuels.get(j).domaine.equals()) {
+          
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 
@@ -142,12 +228,24 @@ void mousePressed(){
     /* ------------ DETECTION DU CLIC POUR LE DRAG N DROP ----------- */
 
     for (int i = 0; i<visuels.size(); i++){
-        visuels.get(i).detection();
-        if (visuels.get(i).bing){
+        //visuels.get(i).detection();
+        if (visuels.get(i).detection()){
             visuels.get(i).savex = mouseX;
             visuels.get(i).savey = mouseY;
             indexdrag = i;
             pressedbing = true;
+            break;
+        }
+          
+    }
+
+    /* ------------ DETECTION DU CLIC POUR LES DOMAINES ----------- */
+
+    for (int i = 0; i<visusdom.length; i++){
+        //visuels.get(i).detection();
+        if (visusdom[i].detection()){
+            visusdom[i].savex = mouseX;
+            visusdom[i].savey = mouseY;
             break;
         }
           
@@ -161,29 +259,39 @@ void mouseReleased(){
   /* ------------ DETECTION DU DOMAINE LORS D'UN DROP D'UNE OEUVRE ----------- */
 
   for (int i = 0; i<visusdom.length; i++){
+
+    if (visusdom[i].savex == mouseX && visusdom[i].savey == mouseY && l4) {
+      visusdom[i].details = visusdom[i].details == true ? false : true;
+    }
+
     for (int j = 0; j<visuels.size(); j++){
-      visusdom[i].detection();
-      visuels.get(j).detection();
+      //visusdom[i].detection();
       
       if (int(visuels.get(j).savex) == mouseX && int(visuels.get(j).savey) == mouseY){
-       // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
-        // image(visuels.get(j).imageoeuvre, visuels.get(j).px, visuels.get(j).py);
-        // println(int(visuels.get(j).savex) +" "+ mouseX +"   "+ int(visuels.get(j).savey) +" "+ mouseY);
-        // if (visuels.get(j).details){
-        //   visuels.get(j).details = false;
-        // }else {
-        //   visuels.get(j).details = true;
-        // }
+        // AFFICHAGE IMAGE SI POSSIBLE
         visuels.get(j).details = visuels.get(j).details == true ? false : true;
-
-        println(visuels.get(j) + " " + visuels.get(j).details);
+        //println(visuels.get(j) + " " + visuels.get(j).details);
         gotoend = true;
         break;
       }
 
-      if (visuels.get(j).bing && visusdom[i].bing && visuels.get(j).domaine.equals(visusdom[i].labeldom)){ // && datas1983[j][3] == visusdom[i].labeldom
-        println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
+      if (visuels.get(j).detection() && visusdom[i].detection() && visuels.get(j).domaine.equals(visusdom[i].labeldom)){
+        //println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
+        saveindex = j;
+        visuelsafter.add(visuels.get(j));
+        //thread("anim_disparition");
+        points += int(visuels.get(j).ray);
+
         visuels.remove(j);
+
+        rayondom =  rayondom >= 50 ? rayondom - calcrayon : random(46, 50);
+
+        for (int k = 0; k<visusdom.length; k++){
+           visusdom[k].centre.x = width/2 + cos(angledom)*rayondom;
+           visusdom[k].centre.y = height/2 + sin(angledom)*rayondom;
+           angledom += distridomaine;
+         } // on recentre la position des domaines 
+         angledom = 0;
         break;
       }
     }
@@ -194,13 +302,30 @@ void mouseReleased(){
   gotoend = false;
 }
 
+void anim_disparition(){
+    //println(visuels.get(saveindex).ray);
+    // do{
+    //     if (visuels.get(saveindex).ray - 0.8 < 0) {
+    //         visuels.get(saveindex).ray = 0;
+    //         //println(verification);
+    //         if (verification) {
+    //           visuels.remove(saveindex);
+    //           verification = false;
+    //         }
+    //     }else {
+    //       visuels.get(saveindex).ray = visuels.get(saveindex).ray - 0.8;
+    //       println(visuels.get(saveindex).ray);
+    //       delay(50);
+    //     }
+    // }while (visuels.get(saveindex).ray >= 0);
+}
+
 
 /* -----------------------------
 
     ICI ON PARSE LES DONNEES
 
 ------------------------------- */
-
 
 void parseDatas(){
 
@@ -242,7 +367,6 @@ void parseDatas(){
         }else if (datas1983[i][3].equals("Objet/Design")) {
             objd++;
         }
-
      }
      nbdomaine[0] = peinture;
      nbdomaine[1] = estampe;
@@ -306,3 +430,186 @@ void dashline(float x0, float y0, float x1, float y1, float[] spacing){
     }
   }
 }
+
+/* ------------------------------------------------------
+
+    Classe de domaines
+
+------------------------------------------------------ */
+
+// class Visudom {
+  
+//   int n; // nombre de segments
+//   float rayon;
+//   float angle = 0;
+//   float distribution;
+//   PVector centre;
+//   float [] rayons;
+//   String labeldom;
+//   float distance;
+//   float savex, savey;
+//   boolean init, bing, details;
+
+//   Visudom (float rayon, String labeldom, float centx, float centy) {
+//     this.labeldom = labeldom;
+//     n = 4;
+//     this.rayon = rayon;
+//     centre = new PVector(centx,centy);
+//     rayons = new float [n];
+//     rayons[0] = random(rayon*0.5, rayon*0.8);
+//     rayons[1] = rayons[0] - rayon;
+//     rayons[2] = random(rayon*0.5, rayon*0.8);
+//     rayons[3] = rayons[2] - rayon;
+
+//     distribution = TWO_PI/n;
+//     //centre = new PVector (random(100, width-100),random(100, height-100));
+//     init = true;
+//   }
+
+//   void dessin(){
+//     angle = 0;
+//       noStroke();
+//       fill(255,83,66);
+//       beginShape();
+//         for(int i =0; i<n; i++){
+//           vertex(centre.x + cos(angle)*rayons[i], centre.y+ sin(angle)*rayons[i]);
+//           angle+=distribution;
+//         }
+//       endShape(CLOSE);
+//       fill(255);
+//       textFont(font1);
+//       textSize(13);
+//       text(labeldom, centre.x, centre.y);
+//       if (details) {
+//         angle = 0;
+//         noFill();
+//         stroke(255);
+//         ellipse(centre.x, centre.y, rayon + 40, rayon + 40);
+//         // for (Visuelhexa visuafter : visuelsafter) {
+//         //  println(visuafter.domaine+" "+labeldom);
+//     //          if (visuafter.domaine.equals(labeldom)) {
+//     //            visuafter.dessin();
+//     //          }
+//     //      }
+//       }
+//   }
+
+//   boolean detection(){
+//         distance = dist(mouseX, mouseY, centre.x, centre.y);
+//         bing = distance <= 30 ? true : false;
+//         return bing;
+//     }
+
+//     void dessinlayer2(float cx, float cy){
+//       angle = 0;
+//     noStroke();
+//     fill(255,83,66);
+//     beginShape();
+//       for(int i =0; i<n; i++){
+//         vertex(cx + cos(angle)*rayons[i], cy+ sin(angle)*rayons[i]);
+//         angle+=distribution;
+//       }
+//     endShape(CLOSE);
+//     }
+// }
+
+// /* ------------------------------------------------------
+
+//     Classe de visuels hexa
+
+// ------------------------------------------------------ */
+
+// class Visuelhexa {
+  
+//   float n;
+//     float angle;
+//     float distribution;
+//   float px, py;
+//     float ray;
+//     int indexvisuelbing;
+//     float distance;
+//     boolean bing, details, visudashline, oneach;
+//     String domaine, photoeuvre, nomoeuvre, artiste;
+//     float savex, savey;
+//     PImage imageoeuvre;
+//     float widthtext;
+
+//   Visuelhexa (float posx, float posy, float rayon, String domaine, String photoeuvre, String nomoeuvre, String artiste) {
+//         n = 6;
+//         angle = 0;
+//         this.artiste = artiste;
+//         this.domaine = domaine;
+//         this.photoeuvre = photoeuvre;
+//         this.nomoeuvre = nomoeuvre;
+//         distribution = TWO_PI/n;
+//         bing = false;
+//         details = false;
+//         visudashline = false;
+//         oneach = true;
+//     px = posx;
+//     py = posy;
+//     ray = rayon;
+//   }
+
+//   void dessin(){
+//         angle = 0;
+//         smooth(); 
+//         shapeMode(CENTER);
+//         fill(255);
+//         stroke(255,80);
+//         strokeWeight((ray*0.7));
+//         textAlign(CENTER);
+//         if (details){
+//             fill(32, 44, 61);
+//             noStroke();
+//             rect(4*width/6 - 100, 30, 400, 200);
+//             stroke(89,239,167,80);
+//             textAlign(CENTER);
+//             beginShape();
+//                 for(int i =0; i<n; i++){ 
+//                   vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
+//                   angle+=distribution;
+//                 }
+//             endShape(CLOSE);
+//             dessinimg();
+//             fill(255);
+//             textAlign(CORNER);
+//             textFont(font1);
+//             textSize(12);
+//             widthtext = nomoeuvre.length();
+//             text(nomoeuvre, 5*width/6-55, 50);
+//             text("nb exposé : "+int(ray), 5*width/6-55, 80);
+//             text("Artiste : "+artiste, 5*width/6-55, 110);
+//         }else {
+//             beginShape();
+//                 for(int i =0; i<n; i++){ 
+//                   vertex(px + cos(angle)*ray, py+ sin(angle)*ray);
+//                   angle+=distribution;
+//                 }
+//             endShape(CLOSE);
+//         }
+
+//     }
+
+//     boolean detection(){
+//         return bing = dist(mouseX, mouseY, px, py) <= ray ? true : false;
+//     }
+
+//     void dessinimg(){
+//         if (oneach){
+//             try {
+//                 imageoeuvre = loadImage(photoeuvre);
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
+//         }
+//         oneach = false;
+//         if (imageoeuvre != null){
+//             image(imageoeuvre, 4*width/6 - 100, 30,200,200);
+//         }else{
+//             println("IMAGE NON DISPONIBLE");
+//         }
+        
+//     }
+
+// }

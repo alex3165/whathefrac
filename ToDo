@@ -1,3 +1,4 @@
+- Détecter quand thread fini pour l'animation de disparition d'un visuel.
 
 - Construction layer 4 dataviz …
 
@@ -5,4 +6,3 @@
 
 - Réfléchir aux animations layer3 et 4 avec Timer ! 
 _______________________________________________________________
-

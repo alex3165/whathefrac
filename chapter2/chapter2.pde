@@ -12,6 +12,7 @@ int linesdatas = 0;
 /* ---------------------- HEXAGONES LAYER 3 ------------------------- */
 
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
+ArrayList<Visuelhexa> visuelsafter = new ArrayList<Visuelhexa>();
 float hexalayer2cx, hexalayer2cy;
 float taillevisuels;
 float randx, randy;
@@ -19,12 +20,14 @@ float randx, randy;
 /*------------------------------------------------------------------*/
 
 
-float saveindex = 0; // float saveindex2 = 0, count = 0; float[] distdashs = {5, 8, 5, 8}; ------ POUR LES DASHLINES
+int saveindex = 0;
 
 boolean pressedbing = false;
 boolean l1 = false, l2 = false, l3 = true, l4 = false;
 boolean do1each = true;
 boolean gotoend = false;
+boolean do1eachtimer = true;
+boolean verif = true, verification = true;
 // Visuelhexa visuelpressed, visueldragged;
 
 Visudom[] visuslayer2 = new Visudom[3];
@@ -48,6 +51,7 @@ int currentseconde, timer;
 
 float loading;
 
+int points, totalmax, scorefinal;
 
 void setup(){
     size(1024, 768);
@@ -88,31 +92,42 @@ void setup(){
 
 
 void draw(){
-  // On fait le timer de secondes.
-  if (currentseconde != second()){
-      currentseconde = second();
-      timer++;
-  }
+
   if (l1){
+    timing();
     layer1();
   }
   if (l2){
+    timing();
     layer2();
   }
   if (l3){
+    if (do1eachtimer) {
+      timer = 0;
+      do1eachtimer = false;
+    }
+    timing();
     layer3();
   }
   if (l4){
     layer4();
     datavizlayer4();
   }
-  
 }
 
+
+void timing(){
+  if (currentseconde != second()){
+      currentseconde = second();
+      timer++;
+      loading++;
+  }
+}
 
 void keyPressed() {
   if (key == 'b' || key == 'B') {
     for (int i = 0; i < visuels.size(); ++i) {
+      points = points + int(visuels.get(i).ray);
       visuels.remove(i);
       rayondom =  rayondom >= 60 ? rayondom - calcrayon : random(50, 60);
       println(rayondom);
@@ -124,6 +139,8 @@ void keyPressed() {
          angledom = 0;
     }
     //println(visuels.size());
+  }else if (key == 'd' || key == 'D') {
+    loading = loading + 10;
   }
 }
 
@@ -157,7 +174,7 @@ void fabricdomaine(){
 ------------------------------- */
 
 void lineartiste(){
-    saveindex = 0;
+    //saveindex = 0;
 
     /*
         for (int i = 0; i<visuels.size(); i++){
@@ -250,9 +267,15 @@ void mouseReleased(){
 
       if (visuels.get(j).detection() && visusdom[i].detection() && visuels.get(j).domaine.equals(visusdom[i].labeldom)){
         //println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
+        saveindex = j;
+        visuelsafter.add(visuels.get(j));
+        //thread("anim_disparition");
+        points += int(visuels.get(j).ray);
+
         visuels.remove(j);
+
         rayondom =  rayondom >= 50 ? rayondom - calcrayon : random(46, 50);
-        //rayondom = rayondom - calcrayon;
+
         for (int k = 0; k<visusdom.length; k++){
            visusdom[k].centre.x = width/2 + cos(angledom)*rayondom;
            visusdom[k].centre.y = height/2 + sin(angledom)*rayondom;
@@ -269,13 +292,30 @@ void mouseReleased(){
   gotoend = false;
 }
 
+void anim_disparition(){
+    //println(visuels.get(saveindex).ray);
+    // do{
+    //     if (visuels.get(saveindex).ray - 0.8 < 0) {
+    //         visuels.get(saveindex).ray = 0;
+    //         //println(verification);
+    //         if (verification) {
+    //           visuels.remove(saveindex);
+    //           verification = false;
+    //         }
+    //     }else {
+    //       visuels.get(saveindex).ray = visuels.get(saveindex).ray - 0.8;
+    //       println(visuels.get(saveindex).ray);
+    //       delay(50);
+    //     }
+    // }while (visuels.get(saveindex).ray >= 0);
+}
+
 
 /* -----------------------------
 
     ICI ON PARSE LES DONNEES
 
 ------------------------------- */
-
 
 void parseDatas(){
 
@@ -317,7 +357,6 @@ void parseDatas(){
         }else if (datas1983[i][3].equals("Objet/Design")) {
             objd++;
         }
-
      }
      nbdomaine[0] = peinture;
      nbdomaine[1] = estampe;

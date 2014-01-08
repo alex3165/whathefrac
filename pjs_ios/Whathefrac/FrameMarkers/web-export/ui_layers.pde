@@ -5,24 +5,24 @@
 ------------------------------- */
 
 
-// void layer1(){
-//     background(23, 33, 48);
-//     textFont(font2);
-//     textAlign(RIGHT);
-//     textSize(100);
-//     fill(224, 83, 72);
-//     text("make the frac", width/2+120, height/3 + 60);
+void layer1(){
+    background(23, 33, 48);
+    textFont(font2);
+    textAlign(RIGHT);
+    textSize(100);
+    fill(224, 83, 72);
+    text("make the frac", width/2+120, height/3 + 60);
     
-//     textAlign(CENTER);
-//     fill(255);
-//     text("- 1983 -", width/2+60, height/2 + 60);
-//     if (timer>=5){
-//       l2 = true;
-//       l1 = false;
-//       l3 = false;
-//       l4= false;
-//     }
-// }
+    textAlign(CENTER);
+    fill(255);
+    text("- 1983 -", width/2+60, height/2 + 60);
+    if (timer>=5){
+      l2 = true;
+      l1 = false;
+      l3 = false;
+      l4= false;
+    }
+}
 
 void layer2(){
     if (do1each){

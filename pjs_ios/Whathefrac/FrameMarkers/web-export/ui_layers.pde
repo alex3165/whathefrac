@@ -9,7 +9,7 @@ void layer1(){
     background(23, 33, 48);
     textFont(font2);
     textAlign(RIGHT);
-    textSize(100);
+    textSize(80);
     fill(224, 83, 72);
     text("make the frac", width/2+120, height/3 + 60);
     
@@ -64,7 +64,7 @@ void layer2(){
     rect(4*width/5, 390, 200, 40);
     fill(255);
     textFont(font2);
-    textSize(50);
+    textSize(30);
     text("domaines", 4*width/5+80, 163);
     text("oeuvres", 4*width/5+80, 416);
     if (loading >= width-60){
@@ -75,7 +75,7 @@ void layer2(){
       loading = 0;
       do1each = true;
     }
-    textSize(60);
+    textSize(40);
     textAlign(CENTER);
     fill(255);
     text("Reconstitue la collection du frac".toUpperCase(), width/2, 80);
@@ -115,7 +115,7 @@ void layer3(){
     fill(255,83,66);
     rect(30, 50, loading, 20);
     loading = constrain(loading,0,width/3);
-    //lineartiste();
+    lineartiste();
     
     /* ----------------- BARRE DE CHARGEMENT -------------------
     noStroke();

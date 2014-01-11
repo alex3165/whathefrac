@@ -13,6 +13,8 @@ int linesdatas = 0;
 
 ArrayList<Visuelhexa> visuels = new ArrayList<Visuelhexa>();
 ArrayList<Visuelhexa> visuelsafter = new ArrayList<Visuelhexa>();
+Visuelhexa visusave;
+float multiplicateur = 1;
 float hexalayer2cx, hexalayer2cy;
 float taillevisuels;
 float randx, randy;
@@ -58,8 +60,8 @@ void setup(){
     posyvisu1 = height/9;
     currentseconde = second();
     background(23, 33, 48);
-    //font1 = loadFont("latolight.vlw");
-    //font2 = loadFont("canterlight.vlw");
+    //font1 = loadFont("latolight.ttf");
+    //font2 = loadFont("canterlight.ttf");
     font2 = createFont("canterlight",20);
     font1 = createFont("latolight",46);
     
@@ -67,7 +69,7 @@ void setup(){
 
     for (int i = 0; i<datas1983.length; i++){
         // println(datas1983[i][2]); --> print de la colonne des nombres de fois exposés
-        taillevisuels = map(float(datas1983[i][2]), 0, 43, 4, 43);
+        taillevisuels = map(float(datas1983[i][2]), 0, 43, 7, 48);
         randx = random(0+43,width-43);
         randy = random(0+43, height-43);
         if (randx>width-400 && randy<200) {
@@ -186,20 +188,18 @@ void fabricdomaine(){
 void lineartiste(){
     //saveindex = 0;
 
-    /*
         for (int i = 0; i<visuels.size(); i++){
           for (int j = visuels.size()-1; j>=0; j--){
             //println(visuels.get(i).artiste+ "  = ?  " + visuels.get(j).artiste);
-            if (visuels.get(i).artiste.equals(visuels.get(j).artiste) && !visuels.get(i).visudashline && !visuels.get(j).visudashline){
+if (visuels.get(i).artiste.equals(visuels.get(j).artiste) && dist(visuels.get(i).px,visuels.get(i).py,visuels.get(j).px,visuels.get(j).py)<100){
               strokeWeight(1);
-              println("YES");
-              dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py, distdashs);
-              visuels.get(i).visudashline = true;
-              visuels.get(j).visudashline = true;
+              fill(255);
+              stroke(255);
+              //dashline(visuels.get(i).px, visuels.get(i).py, visuels.get(j).px, visuels.get(j).py,{8,6,8,6});
+              line(visuels.get(i).px,visuels.get(i).py,visuels.get(j).px,visuels.get(j).py);
             }
           }
         }
-    */
 }
 
 
@@ -279,9 +279,17 @@ void mouseReleased(){
         //println(visuels.get(j).domaine + " " + visusdom[i].labeldom);
         saveindex = j;
         visuelsafter.add(visuels.get(j));
+//        if( visusave != NULL && visusave.artiste.equals(visuels.get(j).artiste)){
+//            points += int(visuels.get(j).ray*multiplicateur);
+//            multiplicateur = multiplicateur *1.2;
+//        }
+//        else{
+//            points += int(visuels.get(j).ray);
+//            multiplicateur = 1;
+//        }
+        visusave = visuels.get(j);
         //thread("anim_disparition");
         points += int(visuels.get(j).ray);
-
         visuels.remove(j);
 
         rayondom =  rayondom >= 50 ? rayondom - calcrayon : random(46, 50);

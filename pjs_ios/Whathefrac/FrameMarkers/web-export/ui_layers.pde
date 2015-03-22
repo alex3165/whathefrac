@@ -139,7 +139,7 @@ void layer4(){
     textFont(font2);
     textSize(60);
     textAlign(CORNER);
-    println(scorefinal);
+    //println(scorefinal);
     text("- 1983 -", width/2-40, 80);
     textFont(font1, 18);
     fill(89, 238, 167);

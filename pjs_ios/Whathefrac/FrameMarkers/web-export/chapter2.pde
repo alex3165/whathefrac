@@ -55,11 +55,17 @@ float loading;
 
 int points, totalmax, scorefinal;
 
+Minim minim;
+AudioPlayer track;
+
 void setup(){
     size(1024, 768);
     posyvisu1 = height/9;
     currentseconde = second();
     background(23, 33, 48);
+    minim = new Minim(this);
+    track = minim.loadFile("encore.ogg");
+    track.play();
     //font1 = loadFont("latolight.ttf");
     //font2 = loadFont("canterlight.ttf");
     font2 = createFont("canterlight",20);

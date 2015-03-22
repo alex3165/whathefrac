@@ -39,9 +39,18 @@
 #import "ARParentViewController.h"
 #import "QCARutils.h"
 
+// test alex
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
 @implementation FrameMarkersAppDelegate
 
 static BOOL firstTime = YES;
+
+NSString *soundFilePath = [NSString stringWithFormat:@"%@/web-export/encore.mp3", [[NSBundle mainBundle] resourcePath]];
+NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+
 
 // this is the application entry point
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -69,6 +78,7 @@ static BOOL firstTime = YES;
     webSite.backgroundColor = [UIColor clearColor];
     webSite.opaque = NO;
     [webSite setHidden:NO];
+    [webSite setMediaPlaybackRequiresUserAction:NO];
     
     webSite.transform = CGAffineTransformMakeRotation(M_PI_2);
     webSite.center = CGPointMake(256, 512);
@@ -84,14 +94,17 @@ static BOOL firstTime = YES;
     NSLog(@"Show PJS !");
     [webSite setHidden:NO];
     [window bringSubviewToFront:webSite];
+    player.numberOfLoops = -1; //Infinite
+    [player play];
     
 }
 - (void)hidePJS {
     NSLog(@"Hide PJS !");
     [webSite setHidden:YES];
     [window bringSubviewToFront:arParentViewController.view];
-    
+    [player stop];
 }
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {

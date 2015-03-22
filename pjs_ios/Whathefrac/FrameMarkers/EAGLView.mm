@@ -152,7 +152,7 @@ namespace {
             const QCAR::Marker& marker = markerResult->getTrackable();
             
             int targetIndex = marker.getMarkerId();
-            
+                   
             //NSLog(@"Target index is %i", targetIndex);
             
             

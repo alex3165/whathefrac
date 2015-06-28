@@ -4,7 +4,7 @@
 
 Technologies :
 
-* Processing compiled to javascript
+* Processing (java) compiled to javascript
 * iOS Webview
 
 ### Ipad application icon
